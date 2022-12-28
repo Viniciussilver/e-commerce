@@ -1,22 +1,45 @@
 import * as C from './style';
-import paths from '../../constants/paths';
+
+import paths from '../../utils/paths';
+import Logo from '../../assets/logo.png';
 
 import { useState, useEffect } from 'react';
-
 import { IoIosArrowUp } from 'react-icons/io';
-
-import Logo from '../../assets/logo.png';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useFetch } from '../../hooks/useFetch';
+import { useCart } from '../../hooks/CartContext';
+import { formatCurrency } from '../../utils/format';
+
+import dark from '../../styles/themes/dark';
+import light from '../../styles/themes/light';
+import { useThemeContext } from '../../hooks/ThemeContext';
 
 export const Header = () => {
-  const [activeDarkTheme, setActiveDarkTheme] = useState(false);
   const [categoryVisible, setCategoryVisible] = useState(false);
-  const { categories } = useFetch();
+  const [totalSum, setTotalSum] = useState(0);
 
-  const navigate = useNavigate();
+  const { cartQuantity, cartItems, setCartOpen } = useCart();
+
+  const { setTheme, theme } = useThemeContext();
+
+  useEffect(() => {
+    const total = cartItems.reduce(
+      (acc, item) => acc + item.quantity * item.price,
+      0
+    );
+
+    setTotalSum(total);
+  }, [cartItems]);
+
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  let { data: categories } = useFetch<string[]>('products/categories'); // requisição api categorias
+
+  if (categories?.length) {
+    categories = ['All', ...categories];
+  }
 
   return (
     <C.Container>
@@ -29,7 +52,6 @@ export const Header = () => {
         >
           Home
         </C.LinkStyle>
-
         {pathname !== paths.products && (
           <C.AreaProducts onClick={() => setCategoryVisible(!categoryVisible)}>
             <C.LinkStyle isActive={pathname === paths.products}>
@@ -38,7 +60,7 @@ export const Header = () => {
 
             <IoIosArrowUp
               style={{
-                color: 'rgba(0,0,0,0.6)',
+                color: theme.title === 'dark' ? '#fff' : 'rgba(0,0,0,0.6)',
                 width: 15,
                 height: 15,
                 transform: categoryVisible ? 'rotate(180deg)' : 'none',
@@ -46,7 +68,7 @@ export const Header = () => {
             />
 
             <C.ListCategories visible={categoryVisible}>
-              {categories.map(item => (
+              {categories?.map(item => (
                 <C.ButtonLink
                   key={item}
                   to={paths.products}
@@ -68,29 +90,20 @@ export const Header = () => {
         <C.LinkStyle isActive={pathname === paths.contact}>Contato</C.LinkStyle>
         <C.LinkStyle isActive={pathname === paths.login}>Login</C.LinkStyle>
 
-        <C.CartArea>
+        <C.CartArea onClick={() => setCartOpen(true)}>
           <C.Cart />
           <C.BoxQuantity>
-            <C.P color='#fff'>1</C.P>
+            <C.P color='#fff'>{cartQuantity}</C.P>
           </C.BoxQuantity>
-          <C.P>R$ 30,00</C.P>
+          <C.P>{formatCurrency(totalSum)}</C.P>
         </C.CartArea>
       </C.ContainerItems>
-      <C.ThemeArea>
-        <C.IconDarkTheme
-          style={{ color: activeDarkTheme ? '#808080' : '#000' }}
-        />
-
-        <C.BoxButton>
-          <C.Button
-            onClick={() => setActiveDarkTheme(!activeDarkTheme)}
-            position={activeDarkTheme}
-          ></C.Button>
-        </C.BoxButton>
-        <C.IconLightTheme
-          style={{ color: activeDarkTheme ? '#ffd700' : '#808080' }}
-        />
-      </C.ThemeArea>
+      <C.BoxButton>
+        <C.Button
+          onClick={() => setTheme(theme.title === 'light' ? dark : light)}
+          position={theme.title === 'light'}
+        ></C.Button>
+      </C.BoxButton>
     </C.Container>
   );
 };

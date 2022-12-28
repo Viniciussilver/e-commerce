@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 import { FaShoppingCart } from 'react-icons/fa';
-import { MdDarkMode } from 'react-icons/md';
-import { BsLightbulbFill } from 'react-icons/bs';
 
 import { Link } from 'react-router-dom';
 
@@ -14,10 +12,10 @@ export const Container = styled.div`
   justify-content: space-around;
   position: fixed;
   top: 0;
-  background-color: #fff;
+  background-color: ${props => props.theme.colors.background};
   /* box-shadow: 0.5px 0.5px 10px 0.5px #000; */
   box-shadow: 0 0 10px #333;
-  z-index: 2;
+  z-index: 5;
 `;
 
 export const ImgLogo = styled.img`
@@ -34,11 +32,15 @@ export const ContainerItems = styled.div`
 export const LinkStyle = styled.a<{ isActive: boolean }>`
   cursor: pointer;
   text-decoration: none;
-  color: #000;
-  font-weight: ${({ isActive }) => (isActive ? 'bold' : '400')};
-  font-size: ${({ isActive }) => (isActive ? '17.7px' : '17px')};
+  color: ${props => props.theme.colors.text};
+  font-weight: 500;
+  font-size: 17.4px;
+
   line-height: 19px;
   opacity: 0.8;
+  padding: 2px 5px;
+  border-bottom: ${props =>
+    props.isActive ? `2px solid ${props.theme.colors.text}` : 'none'};
 
   &:hover {
     opacity: 1;
@@ -51,36 +53,27 @@ export const CartArea = styled.div`
   gap: 10px;
   background-color: #eeeeee;
   padding: 8px 10px;
+  cursor: pointer;
+  opacity: 0.9;
+
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 export const Cart = styled(FaShoppingCart)`
   width: 23px;
   height: 23px;
   color: #000;
-  cursor: pointer;
-`;
-
-export const ThemeArea = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
 `;
 
 export const BoxButton = styled.div`
   width: 46px;
-  height: 18px;
-  background-color: rgba(0, 0, 0, 0.6);
+  height: 13px;
+  background-color: rgba(0, 0, 0, 0.9);
   border-radius: 10px;
-`;
-
-export const IconDarkTheme = styled(MdDarkMode)`
-  width: 22px;
-  height: 22px;
-`;
-
-export const IconLightTheme = styled(BsLightbulbFill)`
-  width: 20px;
-  height: 20px;
+  display: flex;
+  align-items: center;
 `;
 
 export const Button = styled.button<{ position?: boolean }>`
@@ -92,7 +85,7 @@ export const Button = styled.button<{ position?: boolean }>`
   cursor: pointer;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
 
-  transform: ${({ position }) => (position ? 'translateX(30.4px);' : 'none')};
+  transform: ${({ position }) => (position ? 'none' : 'translateX(30.4px);')};
 `;
 
 export const BoxQuantity = styled.div`
@@ -116,14 +109,14 @@ export const AreaProducts = styled.div`
 
 export const ListCategories = styled.div<{ visible: boolean }>`
   position: absolute;
-  top: 50px;
+  top: 52px;
   left: -5px;
   display: flex;
   flex-direction: column;
   gap: 0px;
   width: 160px;
   border-radius: 2px;
-  background-color: #fff;
+  background-color: #f5f5f5;
   overflow: hidden;
   transition: 0.2s ease-in;
   visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
@@ -138,6 +131,8 @@ export const ButtonLink = styled(Link)`
   text-decoration: none;
   padding: 8px 0;
   width: 100%;
+  font-weight: 500;
+  font-size: 16px;
   border-bottom: 1px solid #eeeeee;
   cursor: pointer;
   color: rgba(0, 0, 0, 0.8);

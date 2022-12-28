@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
@@ -13,17 +13,17 @@ export const Container = styled.div`
     border-radius: 5px;
     border-left: 3px solid rgba(0, 0, 0, 0.5);
   }
-`
+`;
 
 export const ContainerItem = styled.div`
   display: flex;
   align-items: center;
   gap: 16px;
-`
+`;
 
 export const Image = styled.img`
   width: 95px;
-`
+`;
 
 export const InfoShipping = styled.div`
   display: flex;
@@ -31,7 +31,7 @@ export const InfoShipping = styled.div`
   align-items: flex-start;
 
   p {
-    font-weight: 400;
+    font-weight: 600;
     font-size: 15.5px;
     color: rgba(0, 0, 0, 0.7);
   }
@@ -40,25 +40,25 @@ export const InfoShipping = styled.div`
     font-weight: bold;
     font-size: 20px;
   }
-`
+`;
 
 export const Title = styled.div`
-  font-weight: 400;
+  font-weight: 500;
   font-size: 24px;
   color: rgba(0, 0, 0, 0.7);
-`
+`;
 
 export const Card = styled.div`
   width: 80px;
   height: 50px;
   border-radius: 10px;
-  border: 4px solid #484d50;
+  border: 4px solid #282b34;
   position: relative;
 
   .card-item {
     width: 74px;
     height: 10px;
-    background-color: #484d50;
+    background-color: #282b34;
     position: absolute;
     top: 7px;
     left: -1px;
@@ -73,17 +73,17 @@ export const Card = styled.div`
       width: 16px;
       height: 16px;
       border-radius: 50%;
-      background-color: #484d50;
+      background-color: #282b34;
     }
     .point-2 {
-      width: 19px;
-      height: 19px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
-      background-color: #484d50;
+      background-color: #282b34;
       position: absolute;
       top: -1.2px;
       right: -14px;
-      border: 2px solid #fff;
+      border: 2px solid ${props => props.theme.colors.primary};
     }
   }
-`
+`;

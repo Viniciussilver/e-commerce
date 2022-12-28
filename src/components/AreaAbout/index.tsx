@@ -1,8 +1,6 @@
-import * as C from './style'
+import * as C from './style';
 
-import resume from '../../utils/clientes'
-
-import Car from '../../assets/car.png'
+import Car from '../../assets/car.png';
 
 export const AreaAbout = () => {
   return (
@@ -48,5 +46,5 @@ export const AreaAbout = () => {
         </C.InfoShipping>
       </C.ContainerItem>
     </C.Container>
-  )
-}
+  );
+};

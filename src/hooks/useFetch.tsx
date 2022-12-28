@@ -1,43 +1,25 @@
 import { useEffect, useState } from 'react';
-import api from '../services/api';
 
-export type ProductTypes = {
-  category: string;
-  description: string;
-  id: number;
-  image: string;
-  price: number;
-  rating: {
-    rate: number;
-    count: number;
-  };
-  title: string;
-};
+import axios from 'axios';
 
-export const useFetch = () => {
-  const [allProducts, setAllProducts] = useState<ProductTypes[]>([]);
-  const [categories, setCategories] = useState<string[]>([]);
+const api = axios.create({
+  baseURL: 'https://fakestoreapi.com/',
+});
+
+export const useFetch = <T,>(url: string) => {
+  const [data, setData] = useState<T>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadCategory = async () => {
+    const fetch = async () => {
       await api
-        .get('products/categories')
-        .then(res => setCategories(['All', ...res.data]))
-        .catch(e => console.log(e));
-    };
-
-    const loadProducts = async () => {
-      await api
-        .get('products')
-        .then(res => setAllProducts(res.data))
-        .catch(e => console.log(e))
+        .get(url)
+        .then(res => setData(res.data))
         .finally(() => setLoading(false));
     };
 
-    loadCategory();
-    loadProducts();
+    fetch();
   }, []);
 
-  return { allProducts, categories, loading };
+  return { data, loading };
 };

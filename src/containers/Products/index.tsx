@@ -2,40 +2,50 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { DotSpinner } from '@uiball/loaders';
 
-import { useFetch, ProductTypes } from '../../hooks/useFetch';
+import { useFetch } from '../../hooks/useFetch';
+import { Footer, Header, ProductItem } from '../../components';
 
-import { Header, ProductItem } from '../../components';
 import * as C from './style';
+import { useCart } from '../../hooks/CartContext';
+import { ProductType } from '../../@types/Product';
+import { Cart } from '../Cart';
 
 export const Products = () => {
   const { state } = useLocation();
 
-  let initialState: string = 'All';
+  let initialState = 'All';
   if (state?.category) {
     initialState = state.category;
   }
 
-  const { allProducts, categories, loading } = useFetch();
-  const [filteredProducts, setFilteredProducts] = useState<ProductTypes[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<ProductType[]>();
   const [category, setCategory] = useState(initialState);
+
+  let { data: categories } = useFetch<string[]>('products/categories');
+  const { data: allProducts, loading } = useFetch<ProductType[]>('products');
+
+  if (categories?.length) {
+    categories = ['All', ...categories];
+  }
 
   useEffect(() => {
     if (category === 'All') {
-      return setFilteredProducts(allProducts);
+      setFilteredProducts(allProducts);
+    } else {
+      const newList = allProducts?.filter(item => item.category === category);
+
+      setFilteredProducts(newList);
     }
-
-    const newList = allProducts.filter(item => item.category === category);
-
-    setFilteredProducts(newList);
   }, [category, allProducts]);
 
+  useCart();
   return (
     <C.Container>
       <Header />
 
       <C.RowList>
         <C.ListArea>
-          {categories.map((item, index) => (
+          {categories?.map((item, index) => (
             <C.ButtonCategory
               key={index}
               onClick={() => setCategory(item)}
@@ -48,16 +58,19 @@ export const Products = () => {
       </C.RowList>
 
       <C.ContainerItems>
-        {filteredProducts.map((item, index) => (
+        {filteredProducts?.map((item, index) => (
           <ProductItem key={index} item={item} />
         ))}
       </C.ContainerItems>
 
       {loading && (
-        <div style={{ position: 'absolute', top: 300, left: '48.5%' }}>
-          <DotSpinner size={53} speed={0.9} color='black' />
+        <div
+          style={{ position: 'absolute', top: 330, left: '50%', right: '50%' }}
+        >
+          <DotSpinner size={55} speed={0.9} color='black' />
         </div>
       )}
+      <Cart />
     </C.Container>
   );
 };

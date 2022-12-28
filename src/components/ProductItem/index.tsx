@@ -1,13 +1,16 @@
 import * as C from './style';
 
-import { ProductTypes } from '../../hooks/useFetch';
 import { formatCurrency } from '../../utils/format';
+import { ProductType } from '../../@types/Product';
+import { useCart } from '../../hooks/CartContext';
 
 type Props = {
-  item: ProductTypes;
+  item: ProductType;
 };
 
 export const ProductItem = ({ item }: Props) => {
+  const { putProductsInCart } = useCart();
+
   return (
     <C.Container>
       <C.AreaImg>
@@ -45,7 +48,9 @@ export const ProductItem = ({ item }: Props) => {
         }}
       >
         <C.P>{formatCurrency(item.price)}</C.P>
-        <C.Button>ADD</C.Button>
+        <C.Button onClick={() => putProductsInCart({ ...item, quantity: 1 })}>
+          ADD
+        </C.Button>
       </div>
     </C.Container>
   );

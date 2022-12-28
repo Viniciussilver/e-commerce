@@ -29,7 +29,7 @@ export const Image = styled.img`
 export const NameText = styled.p`
   color: #000;
   font-weight: 500;
-  font-size: 18.5px;
+  font-size: 18px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -45,7 +45,7 @@ export const AreaStars = styled.div`
     padding-left: 4px;
     font-size: 13.3px;
     color: #afafaf;
-    font-weight: 300;
+    font-weight: 400;
   }
 `;
 
@@ -56,8 +56,9 @@ export const StarIcon = styled(AiFillStar)<{ color: string }>`
 `;
 
 export const P = styled.p`
-  font-weight: 500;
+  font-weight: 600;
   font-size: 17px;
+  color: rgba(0, 0, 0, 0.8);
 `;
 
 export const Button = styled.button`

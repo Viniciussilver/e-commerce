@@ -1,6 +1,6 @@
-import * as C from './style'
+import * as C from './style';
 
-import resume from '../../utils/clientes'
+import resume from '../../utils/ratings';
 
 export const EvaluationSession = () => {
   return (
@@ -22,5 +22,5 @@ export const EvaluationSession = () => {
         ))}
       </C.Body>
     </C.Container>
-  )
-}
+  );
+};

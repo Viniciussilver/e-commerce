@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   min-height: 100vh;
@@ -6,8 +6,8 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #dcdcdc;
-`
+  background-color: ${props => props.theme.colors.primary};
+`;
 
 export const RowList = styled.div`
   overflow: auto;
@@ -22,35 +22,35 @@ export const RowList = styled.div`
   @media screen and (max-width: 620px) {
     width: 380px;
   }
-`
+`;
 
 export const ListArea = styled.div`
   display: flex;
   gap: 10px;
-`
+`;
 
 export const ButtonCategory = styled.div<{ active: boolean }>`
-  padding: 9px 14px;
+  padding: 8px 12px;
   color: ${({ active }) => (active ? '#fff' : '#000')};
   background-color: ${({ active }) => (active ? '#000' : 'transparent')};
   border-radius: 20px;
   border: 2px solid #000;
   cursor: pointer;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 17px;
-  transform: scale(0.9);
-  transition: 0.3s ease-in-out;
+  transition: 0.2s ease-in-out;
 
   &:hover {
-    transform: scale(1);
+    background-color: #000;
+    color: #fff;
   }
-`
+`;
 
 export const ContainerItems = styled.div`
   max-width: 1200px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 50px;
+  gap: 60px;
   margin-top: 40px;
-`
+`;
