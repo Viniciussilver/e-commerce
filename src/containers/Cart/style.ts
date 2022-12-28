@@ -48,14 +48,14 @@ export const CartArea = styled.div<{ isActive: boolean }>`
   display: flex;
   flex-direction: column;
 
-  position: absolute;
-  width: 500px;
+  /* position: absolute; */
+  max-width: 500px;
   height: 100vh;
   background-color: ${props => props.theme.colors.primary};
-  transition: 0.3s;
-  top: 0;
-  right: ${({ isActive }) => (isActive ? '0' : '-420px')};
-  z-index: 7;
+  /* transition: 0.3s; */
+  /* top: 0; */
+  /* right: ${({ isActive }) => (isActive ? '0' : '-420px')};
+  z-index: 7; */
 `;
 
 export const ScrollItemsBox = styled.div`

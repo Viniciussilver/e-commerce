@@ -1,5 +1,7 @@
 import * as C from './style';
 
+import { Drawer } from '@mui/material';
+
 import { useState, useEffect } from 'react';
 import { useCart } from '../../hooks/CartContext';
 import { formatCurrency } from '../../utils/format';
@@ -27,7 +29,13 @@ export const Cart = () => {
     setTotal(total);
   }, [cartItems]);
   return (
-    <C.Container visible={cartOpen}>
+    // <C.Container visible={cartOpen}>
+    <Drawer
+      open={cartOpen}
+      variant='temporary'
+      anchor='right'
+      onClose={() => setCartOpen(false)}
+    >
       <C.CartArea isActive={cartOpen}>
         <C.Header>
           <C.ArrowIcon onClick={() => setCartOpen(false)} />
@@ -89,6 +97,7 @@ export const Cart = () => {
           <button>Go to payment</button>
         </C.CartResume>
       </C.CartArea>
-    </C.Container>
+    </Drawer>
+    // </C.Container>
   );
 };
