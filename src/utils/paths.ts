@@ -1,6 +1,6 @@
 export default {
-  home: '/home',
+  home: '/',
   products: '/produtos',
   contact: '/contato',
   login: '/login',
-}
+};
