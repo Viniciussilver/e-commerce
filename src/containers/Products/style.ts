@@ -5,11 +5,20 @@ export const Container = styled.div`
   padding: 120px 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
   background-color: ${props => props.theme.colors.primary};
 `;
 
 export const RowList = styled.div`
+  display: flex;
+  justify-content: center;
+  /* ::-webkit-scrollbar {
+    display: none;
+  }*/
+`;
+
+export const ListArea = styled.div`
+  display: flex;
+  gap: 10px;
   overflow: auto;
   white-space: nowrap;
   scroll-behavior: smooth;
@@ -20,13 +29,8 @@ export const RowList = styled.div`
   }
 
   @media screen and (max-width: 620px) {
-    width: 380px;
+    width: 365px;
   }
-`;
-
-export const ListArea = styled.div`
-  display: flex;
-  gap: 10px;
 `;
 
 export const ButtonCategory = styled.div<{ active: boolean }>`
@@ -51,6 +55,8 @@ export const ContainerItems = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+
+  margin: 0 auto;
   gap: 60px;
   margin-top: 40px;
 `;

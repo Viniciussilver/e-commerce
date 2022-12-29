@@ -2,18 +2,18 @@ import styled from 'styled-components';
 
 import { IoIosArrowBack } from 'react-icons/io';
 
-export const Container = styled.div<{ visible: boolean }>`
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  top: 0;
-  z-index: 5;
-  transition: 0.3s;
+// export const Container = styled.div<{ visible: boolean }>`
+//   width: 100%;
+//   height: 100vh;
+//   background-color: rgba(0, 0, 0, 0.5);
+//   position: fixed;
+//   top: 0;
+//   z-index: 5;
+//   transition: 0.3s;
 
-  visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
-  opacity: ${({ visible }) => (visible ? '1' : '0')};
-`;
+//   visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
+//   opacity: ${({ visible }) => (visible ? '1' : '0')};
+// `;
 
 export const Header = styled.div`
   width: 100%;
@@ -25,8 +25,8 @@ export const Header = styled.div`
   padding-top: 10px;
 
   p {
-    font-weight: 700;
-    font-size: 23px;
+    font-weight: 600;
+    font-size: 25px;
     color: rgba(0, 0, 0, 0.8);
   }
 `;
@@ -49,16 +49,21 @@ export const CartArea = styled.div<{ isActive: boolean }>`
   flex-direction: column;
 
   /* position: absolute; */
-  max-width: 500px;
+  width: 500px;
   height: 100vh;
+
   background-color: ${props => props.theme.colors.primary};
   /* transition: 0.3s; */
   /* top: 0; */
   /* right: ${({ isActive }) => (isActive ? '0' : '-420px')};
   z-index: 7; */
+
+  @media screen and (max-width: 515px) {
+    width: 380px;
+  }
 `;
 
-export const ScrollItemsBox = styled.div`
+export const ScrollList = styled.div`
   width: 100%;
   height: 100%;
   overflow-y: auto;
@@ -84,17 +89,21 @@ export const BoxItem = styled.div`
 
 export const BoxImage = styled.div`
   background-color: #fff;
-  width: 150px;
-  height: 150px;
+  /* width: 150px;
+  height: 150px; */
+  padding: 12px 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 14px; ;
+  border-radius: 14px;
 `;
 
 export const Image = styled.img`
-  width: 100px;
-  height: 110px;
+  width: 110px;
+
+  @media screen and (max-width: 515px) {
+    width: 85px;
+  }
 `;
 
 export const Title = styled.p`
@@ -102,13 +111,19 @@ export const Title = styled.p`
   font-weight: 600;
   font-size: 17px;
   width: 300px;
+
   color: rgba(0, 0, 0, 0.8);
+
+  @media screen and (max-width: 515px) {
+    width: 240px;
+  }
 `;
 
 export const Info = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  gap: 10px;
 
   .text-price {
     font-weight: 700;
@@ -134,7 +149,7 @@ export const Info = styled.div`
         padding: 0 3px;
         border: none;
         font-size: 22px;
-        color: #7f7f7f;
+        color: ${props => (props.theme.title === 'dark' ? '#000' : '#7f7f7f')};
         cursor: pointer;
       }
 

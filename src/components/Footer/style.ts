@@ -6,12 +6,22 @@ export const Container = styled.div`
   display: flex;
   justify-content: space-evenly;
   background-color: ${props => props.theme.colors.secundary};
+
+  @media screen and (max-width: 1170px) {
+    flex-direction: column;
+    gap: 14px;
+  }
 `;
 
 export const ContainerItem = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  @media screen and (max-width: 1170px) {
+    padding-bottom: 10px;
+    border-bottom: 1.7px solid #eeeeee;
+  }
 `;
 
 export const Title = styled.p`
@@ -38,7 +48,7 @@ export const Img = styled.img`
 
 export const ImageApp = styled.img<{ width?: string }>`
   width: 136px;
-  height: 48px;
+  height: 46px;
   cursor: pointer;
 `;
 
@@ -58,13 +68,23 @@ export const AreaContact = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  border-top: 2px solid rgba(0, 0, 0, 0.1);
+  border-top: 2px solid rgba(0, 0, 0, 0.2);
   margin-top: 100px;
+
+  @media screen and (max-width: 1115px) {
+    flex-direction: column;
+    gap: 20px;
+  }
 `;
 
 export const P = styled.p`
   font-weight: 500;
   font-size: 18px;
+
+  @media screen and (max-width: 1115px) {
+    font-size: 17px;
+    text-align: center;
+  }
 `;
 
 export const Form = styled.div`
@@ -76,6 +96,10 @@ export const Form = styled.div`
     display: flex;
     gap: 30px;
     align-items: center;
+
+    @media screen and (max-width: 785px) {
+      flex-direction: column;
+    }
   }
 
   p {

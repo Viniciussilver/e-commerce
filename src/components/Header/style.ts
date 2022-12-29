@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
   width: 100%;
-  padding: 15px 100px;
+  padding: 15px 0;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -34,7 +34,7 @@ export const LinkStyle = styled.a<{ isActive: boolean }>`
   text-decoration: none;
   color: ${props => props.theme.colors.text};
   font-weight: 500;
-  font-size: 17.4px;
+  font-size: 18px;
 
   line-height: 19px;
   opacity: 0.8;
@@ -59,12 +59,20 @@ export const CartArea = styled.div`
   &:hover {
     opacity: 1;
   }
+
+  @media screen and (max-width: 576px) {
+    display: none;
+  }
 `;
 
 export const Cart = styled(FaShoppingCart)`
   width: 23px;
   height: 23px;
   color: #000;
+
+  @media screen and (max-width: 576px) {
+    color: ${props => props.theme.colors.text};
+  }
 `;
 
 export const BoxButton = styled.div`
@@ -114,9 +122,9 @@ export const ListCategories = styled.div<{ visible: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 0px;
-  width: 160px;
+  width: 170px;
   border-radius: 2px;
-  background-color: #f5f5f5;
+  background-color: #eeeeee;
   overflow: hidden;
   transition: 0.2s ease-in;
   visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
@@ -132,12 +140,36 @@ export const ButtonLink = styled(Link)`
   padding: 8px 0;
   width: 100%;
   font-weight: 500;
-  font-size: 16px;
-  border-bottom: 1px solid #eeeeee;
+  font-size: 17px;
+  border-bottom: 1.5px solid #dcdcdc;
   cursor: pointer;
   color: rgba(0, 0, 0, 0.8);
 
   &:hover {
-    background-color: #eee;
+    background-color: #dcdcdc;
+  }
+`;
+
+export const ResponsiveCartArea = styled.div`
+  position: relative;
+  margin: 6px;
+  cursor: pointer;
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 22px;
+    min-height: 22px;
+    border-radius: 50%;
+    background-color: #000;
+    color: #ececec;
+    position: absolute;
+    top: -13px;
+    right: -10px;
+    font-size: 15px;
+  }
+
+  @media screen and (min-width: 576px) {
+    display: none;
   }
 `;

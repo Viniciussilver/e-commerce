@@ -43,8 +43,7 @@ export const Header = () => {
 
   return (
     <C.Container>
-      <C.ImgLogo src={Logo} alt='imagem-logo' />
-
+      {/* <C.ImgLogo src={Logo} alt='imagem-logo' /> */}
       <C.ContainerItems>
         <C.LinkStyle
           onClick={() => navigate(paths.home)}
@@ -87,9 +86,11 @@ export const Header = () => {
           </C.LinkStyle>
         )}
 
-        <C.LinkStyle isActive={pathname === paths.contact}>Contato</C.LinkStyle>
-        <C.LinkStyle isActive={pathname === paths.login}>Login</C.LinkStyle>
+        {/* <C.LinkStyle isActive={pathname === paths.contact}>Contato</C.LinkStyle>
+        <C.LinkStyle isActive={pathname === paths.login}>Login</C.LinkStyle> */}
+      </C.ContainerItems>
 
+      <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
         <C.CartArea onClick={() => setCartOpen(true)}>
           <C.Cart />
           <C.BoxQuantity>
@@ -97,13 +98,18 @@ export const Header = () => {
           </C.BoxQuantity>
           <C.P>{formatCurrency(totalSum)}</C.P>
         </C.CartArea>
-      </C.ContainerItems>
-      <C.BoxButton>
-        <C.Button
-          onClick={() => setTheme(theme.title === 'light' ? dark : light)}
-          position={theme.title === 'light'}
-        ></C.Button>
-      </C.BoxButton>
+
+        <C.ResponsiveCartArea onClick={() => setCartOpen(true)}>
+          {cartQuantity > 0 && <div>{cartQuantity}</div>}
+          <C.Cart />
+        </C.ResponsiveCartArea>
+        <C.BoxButton>
+          <C.Button
+            onClick={() => setTheme(theme.title === 'light' ? dark : light)}
+            position={theme.title === 'light'}
+          ></C.Button>
+        </C.BoxButton>
+      </div>
     </C.Container>
   );
 };

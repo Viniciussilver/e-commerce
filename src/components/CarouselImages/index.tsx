@@ -15,7 +15,7 @@ export const CarouselImages = () => {
 
   return (
     <C.Container style={{ position: 'relative' }}>
-      {/* <div
+      <div
         style={{
           width: '100%',
           height: '100%',
@@ -23,8 +23,9 @@ export const CarouselImages = () => {
             title === 'light' ? 'transparent' : 'rgba(0,0,0,0.2)',
           position: 'absolute',
           zIndex: 3,
+          display: title === 'light' ? 'none' : 'block',
         }}
-      ></div> */}
+      ></div>
       <Carousel
         showArrows={false}
         showThumbs={false}
@@ -32,7 +33,7 @@ export const CarouselImages = () => {
         interval={3000}
         infiniteLoop={true}
         autoPlay={true}
-        transitionTime={700}
+        transitionTime={600}
         emulateTouch={true}
       >
         <C.ContainerItem>

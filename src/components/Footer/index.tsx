@@ -64,20 +64,14 @@ export const Footer = () => {
 
           <div style={{ display: 'flex', gap: 10 }}>
             <C.ImageApp
-              style={{ height: 57, position: 'relative', bottom: 4 }}
+              style={{ height: 55, position: 'relative', bottom: 4 }}
               src={PlayStore}
             />
             <C.ImageApp src={AppStore} />
           </div>
         </C.ContainerItem>
       </C.Container>
-      <C.Footer>
-        Feito com{' '}
-        <span role='img' aria-label='coração'>
-          💖
-        </span>{' '}
-        por Vinícius!
-      </C.Footer>
+      <C.Footer>Desenvolvido por Vinícius!</C.Footer>
     </>
   );
 };

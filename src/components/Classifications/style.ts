@@ -9,24 +9,31 @@ export const Container = styled.div`
   align-items: center;
   gap: 40px;
   margin: 50px 0;
+  margin-top: 30px;
 `;
 
 export const Title = styled.h1`
   color: #000;
   font-weight: 700;
-  font-size: 40px;
+  font-size: 35px;
+
+  @media screen and (max-width: 1090px) {
+    font-size: 23px;
+    font-weight: 600;
+  }
 `;
 
 export const Body = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 30px;
 `;
 
 export const ContainerItem = styled.div`
   width: 300px;
   padding: 20px;
-  border-radius: 9px;
+  border-radius: 4px;
   box-shadow: 0 0 8px #333;
   display: flex;
   flex-direction: column;
@@ -44,7 +51,7 @@ export const Icon = styled(BsPersonCircle)`
 export const Description = styled.p`
   font-weight: 600;
   font-size: 16.5px;
-  color: rgba(0, 0, 0, 0.8);
+  color: #383f51;
 `;
 
 export const ResumeArea = styled.div`

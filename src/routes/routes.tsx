@@ -12,6 +12,9 @@ import { useThemeContext } from '../hooks/ThemeContext';
 import dark from '../styles/themes/dark';
 import light from '../styles/themes/light';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const App = () => {
   const { theme } = useThemeContext();
 
@@ -25,6 +28,7 @@ const App = () => {
           </Routes>
         </Router>
         <GlobalStyles />
+        <ToastContainer theme='dark' autoClose={1850} position='top-left' />
       </CartContextProvider>
     </ThemeProvider>
   );

@@ -44,7 +44,7 @@ export const AreaStars = styled.div`
   p {
     padding-left: 4px;
     font-size: 13.3px;
-    color: #afafaf;
+    color: ${props => (props.theme.title === 'dark' ? '#383F51' : '#afafaf')};
     font-weight: 400;
   }
 `;

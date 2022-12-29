@@ -14,6 +14,7 @@ export const Cart = () => {
     decreaseProducts,
     increaseProducts,
     removeItem,
+    cartQuantity,
   } = useCart();
 
   const [total, setTotal] = useState(0);
@@ -39,15 +40,15 @@ export const Cart = () => {
       <C.CartArea isActive={cartOpen}>
         <C.Header>
           <C.ArrowIcon onClick={() => setCartOpen(false)} />
-          <p>Seu carrinho</p>
+          <p>{cartQuantity > 0 ? 'Seu carrinho' : 'Carrinho vazio'}</p>
           <span></span>
         </C.Header>
-        <C.ScrollItemsBox>
+        <C.ScrollList>
           <C.ListArea>
             {cartItems.map(item => (
               <C.BoxItem key={item.id}>
                 <C.BoxImage>
-                  <C.Image src={item.image} />
+                  <C.Image src={item.image} alt='imagem-produto' />
                 </C.BoxImage>
                 <C.Info>
                   <C.Title>{item.title}</C.Title>
@@ -69,7 +70,7 @@ export const Cart = () => {
               </C.BoxItem>
             ))}
           </C.ListArea>
-        </C.ScrollItemsBox>
+        </C.ScrollList>
         <C.CartResume>
           <div className='resume-area'>
             <div className='resume'>
@@ -84,7 +85,7 @@ export const Cart = () => {
                 <p>
                   {total > 250
                     ? formatCurrency(total)
-                    : formatCurrency(total + frete)}
+                    : formatCurrency(cartQuantity === 0 ? 0 : total + frete)}
                 </p>
               </div>
             </div>
@@ -94,7 +95,7 @@ export const Cart = () => {
             </div>
           </div>
 
-          <button>Go to payment</button>
+          <button>Confirmar pedido</button>
         </C.CartResume>
       </C.CartArea>
     </Drawer>

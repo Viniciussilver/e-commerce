@@ -1,7 +1,7 @@
 import * as C from './style';
 
 import {
-  AreaAbout,
+  About,
   CarouselImages,
   EvaluationSession,
   Footer,
@@ -15,7 +15,7 @@ export const Home = () => {
       <Header />
       <Cart />
       <CarouselImages />
-      <AreaAbout />
+      <About />
       <EvaluationSession />
       <Footer />
     </C.Container>
