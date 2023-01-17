@@ -67,3 +67,14 @@ export const ContainerItems = styled.div`
   gap: 60px;
   margin-top: 40px;
 `
+
+export const ChargingBox = styled.div`
+  position: absolute;
+  top: 330px;
+  left: 50%;
+  right: 50%;
+
+  @media (max-width: 450px) {
+    left: 45%;
+  }
+`

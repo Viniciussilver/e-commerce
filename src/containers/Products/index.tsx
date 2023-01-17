@@ -49,7 +49,7 @@ export const Products = () => {
     <C.Container>
       <Header />
 
-      {!loadingCategories && !loadingProducts && (
+      {false && (
         <>
           <C.RowList>
             <C.ListArea>
@@ -72,21 +72,14 @@ export const Products = () => {
         </>
       )}
 
-      {(loadingProducts || loadingCategories) && (
-        <div
-          style={{
-            position: 'absolute',
-            top: 330,
-            left: '50%',
-            right: '50%',
-          }}
-        >
+      {true && (
+        <C.ChargingBox>
           <DotSpinner
             size={55}
             speed={0.9}
             color={theme.colors.background.contrast}
           />
-        </div>
+        </C.ChargingBox>
       )}
       <Cart />
     </C.Container>

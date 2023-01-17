@@ -143,12 +143,12 @@ export const Info = styled.div`
         ${props =>
           props.theme.title === 'dark'
             ? props.theme.colors.background.contrast
-            : '#7f7f7f'};
+            : 'rgba(0,0,0,0.3)'};
       border-radius: 5px;
 
       button {
         background-color: transparent;
-        padding: 0 3px;
+        padding: 0 6px;
         border: none;
         font-size: 22px;
         color: ${props => (props.theme.title === 'dark' ? '#fff' : '#7f7f7f')};
