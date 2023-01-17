@@ -30,12 +30,6 @@ export const Cart = () => {
     setTotal(total)
   }, [cartItems])
 
-  function teste() {
-    var yyy = 45
-
-    console.log('oo')
-  }
-
   return (
     // <C.Container visible={cartOpen}>
     <Drawer

@@ -14,7 +14,7 @@ export const Container = styled.div`
   top: 0;
   background-color: ${props => props.theme.colors.background.paper};
   /* box-shadow: 0.5px 0.5px 10px 0.5px #000; */
-  box-shadow: 0 0 10px #333;
+  box-shadow: 0 0 8px #333;
   z-index: 5;
 `
 

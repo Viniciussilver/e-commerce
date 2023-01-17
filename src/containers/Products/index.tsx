@@ -49,7 +49,7 @@ export const Products = () => {
     <C.Container>
       <Header />
 
-      {false && (
+      {!loadingCategories && !loadingProducts && (
         <>
           <C.RowList>
             <C.ListArea>
@@ -72,7 +72,7 @@ export const Products = () => {
         </>
       )}
 
-      {true && (
+      {(loadingProducts || loadingCategories) && (
         <C.ChargingBox>
           <DotSpinner
             size={55}

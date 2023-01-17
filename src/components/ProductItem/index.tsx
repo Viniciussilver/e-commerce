@@ -1,33 +1,33 @@
-import * as C from './style';
+import * as C from './style'
 
-import { formatCurrency } from '../../utils/format';
-import { ProductType } from '../../@types/Product';
-import { useCart } from '../../hooks/CartContext';
-import { toast } from 'react-toastify';
+import { formatCurrency } from '../../utils/format'
+import { ProductType } from '../../@types/Product'
+import { useCart } from '../../hooks/CartContext'
+import { toast } from 'react-toastify'
 
 type Props = {
-  item: ProductType;
-};
+  item: ProductType
+}
 
 export const ProductItem = ({ item }: Props) => {
-  const { putProductsInCart, cartItems } = useCart();
+  const { putProductsInCart, cartItems } = useCart()
 
   const checkItem = (product: ProductType) => {
-    const index = cartItems.findIndex(item => item.id === product.id);
+    const index = cartItems.findIndex(item => item.id === product.id)
 
     if (index < 0) {
-      toast.success('Produto adicionado');
+      toast.success('Produto adicionado')
 
-      putProductsInCart({ ...product, quantity: 1 });
+      putProductsInCart({ ...product, quantity: 1 })
     } else {
-      toast.info('Produto já foi adicionado');
+      toast.info('Produto já foi adicionado')
     }
-  };
+  }
 
   return (
     <C.Container>
       <C.AreaImg>
-        <C.Image src={item.image} alt='imagem-produto' />
+        <C.Image src={item.image} loading='lazy' alt='imagem-produto' />
       </C.AreaImg>
 
       <C.NameText>{item.title}</C.NameText>
@@ -64,5 +64,5 @@ export const ProductItem = ({ item }: Props) => {
         <C.Button onClick={() => checkItem(item)}>ADD</C.Button>
       </div>
     </C.Container>
-  );
-};
+  )
+}
