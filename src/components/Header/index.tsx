@@ -1,44 +1,41 @@
-import * as C from './style';
+import * as C from './style'
 
-import paths from '../../utils/paths';
-import Logo from '../../assets/logo.png';
+import paths from '../../utils/paths'
 
-import { useState, useEffect } from 'react';
-import { IoIosArrowUp } from 'react-icons/io';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react'
+import { IoIosArrowUp } from 'react-icons/io'
+import { useLocation, useNavigate } from 'react-router-dom'
 
-import { useFetch } from '../../hooks/useFetch';
-import { useCart } from '../../hooks/CartContext';
-import { formatCurrency } from '../../utils/format';
+import { useFetch } from '../../hooks/useFetch'
+import { useCart } from '../../hooks/CartContext'
+import { formatCurrency } from '../../utils/format'
 
-import dark from '../../styles/themes/dark';
-import light from '../../styles/themes/light';
-import { useThemeContext } from '../../hooks/ThemeContext';
+import { useThemeContext } from '../../hooks/ThemeContext'
 
 export const Header = () => {
-  const [categoryVisible, setCategoryVisible] = useState(false);
-  const [totalSum, setTotalSum] = useState(0);
+  const [visibleCategory, setVisibleCategory] = useState(false)
+  const [totalSum, setTotalSum] = useState(0)
 
-  const { cartQuantity, cartItems, setCartOpen } = useCart();
+  const { cartQuantity, cartItems, setCartOpen } = useCart()
 
-  const { setTheme, theme } = useThemeContext();
+  const { toggleTheme, theme } = useThemeContext()
 
   useEffect(() => {
     const total = cartItems.reduce(
       (acc, item) => acc + item.quantity * item.price,
       0
-    );
+    )
 
-    setTotalSum(total);
-  }, [cartItems]);
+    setTotalSum(total)
+  }, [cartItems])
 
-  const { pathname } = useLocation();
-  const navigate = useNavigate();
+  const { pathname } = useLocation()
+  const navigate = useNavigate()
 
-  let { data: categories } = useFetch<string[]>('products/categories'); // requisição api categorias
+  let { data: categories } = useFetch<string[]>('products/categories') // requisição api categorias
 
   if (categories?.length) {
-    categories = ['All', ...categories];
+    categories = ['All', ...categories]
   }
 
   return (
@@ -52,21 +49,21 @@ export const Header = () => {
           Home
         </C.LinkStyle>
         {pathname !== paths.products && (
-          <C.AreaProducts onClick={() => setCategoryVisible(!categoryVisible)}>
+          <C.AreaProducts onClick={() => setVisibleCategory(!visibleCategory)}>
             <C.LinkStyle isActive={pathname === paths.products}>
               Produtos
             </C.LinkStyle>
 
             <IoIosArrowUp
               style={{
-                color: theme.title === 'dark' ? '#fff' : 'rgba(0,0,0,0.6)',
+                color: theme.colors.texts.primary,
                 width: 15,
                 height: 15,
-                transform: categoryVisible ? 'rotate(180deg)' : 'none',
+                transform: visibleCategory ? 'none' : 'rotate(180deg)',
               }}
             />
 
-            <C.ListCategories visible={categoryVisible}>
+            <C.ListCategories visible={visibleCategory}>
               {categories?.map(item => (
                 <C.ButtonLink
                   key={item}
@@ -105,11 +102,11 @@ export const Header = () => {
         </C.ResponsiveCartArea>
         <C.BoxButton>
           <C.Button
-            onClick={() => setTheme(theme.title === 'light' ? dark : light)}
+            onClick={() => toggleTheme()}
             position={theme.title === 'light'}
           ></C.Button>
         </C.BoxButton>
       </div>
     </C.Container>
-  );
-};
+  )
+}

@@ -55,21 +55,8 @@ export const CartContextProvider = ({ children }: CartProviderProps) => {
     localStorage.setItem('@e-commerce:cartInfo', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const putProductsInCart = (product: CartItemTypes) => {
-    const index = cartItems.findIndex(item => item.id === product.id);
-
-    if (index < 0) {
-      setCartItems([...cartItems, product]);
-    } else {
-      const newCart = cartItems.map(item => {
-        return item.id === product.id
-          ? { ...item, quantity: item.quantity + 1 }
-          : item;
-      });
-
-      setCartItems(newCart);
-    }
-  };
+  const putProductsInCart = (product: CartItemTypes) =>
+    setCartItems([...cartItems, product]);
 
   const increaseProducts = (product: CartItemTypes) => {
     const newCart = cartItems.map(item => {

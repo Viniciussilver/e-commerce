@@ -17,11 +17,11 @@ export const ProductItem = ({ item }: Props) => {
 
     if (index < 0) {
       toast.success('Produto adicionado');
+
+      putProductsInCart({ ...product, quantity: 1 });
     } else {
       toast.info('Produto já foi adicionado');
     }
-
-    putProductsInCart({ ...product, quantity: 1 });
   };
 
   return (

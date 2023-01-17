@@ -1,13 +1,14 @@
-import * as C from './style';
+import * as C from './style'
 
-import Car from '../../assets/car.png';
-import Methods from '../../assets/sobre.webp';
+import Car from '../../assets/car.png'
+import Methods from '../../assets/sobre.webp'
 
 export const About = () => {
   return (
     <>
-      <C.Container>
-        <C.ImagemTeste src={Methods} />
+      {/*<C.Container>
+         <C.ImgMethods src={Methods} />
+
         <C.ContainerItem>
           <C.Image src={Car} />
 
@@ -48,7 +49,7 @@ export const About = () => {
             </C.Title>
           </C.InfoShipping>
         </C.ContainerItem>
-      </C.Container>
+      </C.Container> */}
 
       <C.AreaAbout>
         <C.Box>
@@ -56,7 +57,7 @@ export const About = () => {
         </C.Box>
 
         <C.TextArea>
-          <C.SubTitle>Lorem ipsum dolor</C.SubTitle>
+          <C.SubTitle>Sobre</C.SubTitle>
           <p className='text'>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui rerum
             ipsam ipsa! Inventore quibusdam error est corrupti quis, cupiditate
@@ -69,5 +70,5 @@ export const About = () => {
         </C.TextArea>
       </C.AreaAbout>
     </>
-  );
-};
+  )
+}

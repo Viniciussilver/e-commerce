@@ -1,21 +1,21 @@
-import * as C from './style';
+import * as C from './style'
 
-import { useContext } from 'react';
+import { useContext } from 'react'
 
-import { Carousel } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
+import { Carousel } from 'react-responsive-carousel'
+import 'react-responsive-carousel/lib/styles/carousel.min.css' // requires a loader
 
-import Image from '../../assets/image1.jpg';
-import Image2 from '../../assets/image2.webp';
-import Image3 from '../../assets/image3.webp';
-import { ThemeContext } from 'styled-components';
+import Image from '../../assets/image1.jpg'
+import Image2 from '../../assets/image2.webp'
+import Image3 from '../../assets/image3.webp'
+import { ThemeContext } from 'styled-components'
 
 export const CarouselImages = () => {
-  const { title } = useContext(ThemeContext);
+  const { title } = useContext(ThemeContext)
 
   return (
     <C.Container style={{ position: 'relative' }}>
-      <div
+      {/* <div
         style={{
           width: '100%',
           height: '100%',
@@ -25,7 +25,7 @@ export const CarouselImages = () => {
           zIndex: 3,
           display: title === 'light' ? 'none' : 'block',
         }}
-      ></div>
+      ></div> */}
       <Carousel
         showArrows={false}
         showThumbs={false}
@@ -48,5 +48,5 @@ export const CarouselImages = () => {
         </C.ContainerItem>
       </Carousel>
     </C.Container>
-  );
-};
+  )
+}

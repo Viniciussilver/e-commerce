@@ -1,8 +1,8 @@
-import * as C from './style';
+import * as C from './style'
 
-import Methods from '../../assets/methods.webp';
-import PlayStore from '../../assets/playSore.png';
-import AppStore from '../../assets/apple.png';
+import Methods from '../../assets/methods.webp'
+import PlayStore from '../../assets/playSore.png'
+import AppStore from '../../assets/apple.png'
 
 export const Footer = () => {
   return (
@@ -26,7 +26,7 @@ export const Footer = () => {
           </p>
         </C.Form>
       </C.AreaContact>
-      <C.Container>
+      <C.Footer>
         <C.ContainerItem>
           <C.Title>INSTITUCIONAL</C.Title>
 
@@ -70,8 +70,8 @@ export const Footer = () => {
             <C.ImageApp src={AppStore} />
           </div>
         </C.ContainerItem>
-      </C.Container>
-      <C.Footer>Desenvolvido por Vinícius!</C.Footer>
+      </C.Footer>
+      <C.Dev>Desenvolvido por Vinícius!</C.Dev>
     </>
-  );
-};
+  )
+}

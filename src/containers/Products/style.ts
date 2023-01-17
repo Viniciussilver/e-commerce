@@ -1,12 +1,12 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Container = styled.div`
   min-height: 100vh;
   padding: 120px 0;
   display: flex;
   flex-direction: column;
-  background-color: ${props => props.theme.colors.primary};
-`;
+  background-color: ${props => props.theme.colors.background.default};
+`
 
 export const RowList = styled.div`
   display: flex;
@@ -14,7 +14,7 @@ export const RowList = styled.div`
   /* ::-webkit-scrollbar {
     display: none;
   }*/
-`;
+`
 
 export const ListArea = styled.div`
   display: flex;
@@ -31,11 +31,18 @@ export const ListArea = styled.div`
   @media screen and (max-width: 620px) {
     width: 365px;
   }
-`;
+`
 
 export const ButtonCategory = styled.div<{ active: boolean }>`
   padding: 8px 12px;
-  color: ${({ active }) => (active ? '#fff' : '#000')};
+  color: ${props =>
+    props.theme.title === 'dark'
+      ? props.active
+        ? '#fff'
+        : '#fff'
+      : props.active
+      ? '#fff'
+      : '#000'};
   background-color: ${({ active }) => (active ? '#000' : 'transparent')};
   border-radius: 20px;
   border: 2px solid #000;
@@ -48,7 +55,7 @@ export const ButtonCategory = styled.div<{ active: boolean }>`
     background-color: #000;
     color: #fff;
   }
-`;
+`
 
 export const ContainerItems = styled.div`
   max-width: 1200px;
@@ -59,4 +66,4 @@ export const ContainerItems = styled.div`
   margin: 0 auto;
   gap: 60px;
   margin-top: 40px;
-`;
+`

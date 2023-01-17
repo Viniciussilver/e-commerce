@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Container = styled.div`
   width: 100%;
@@ -6,7 +6,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   gap: 27px;
-  margin: 60px 0;
+  background-color: #f5f5f5;
 
   .line {
     height: 65px;
@@ -21,7 +21,7 @@ export const Container = styled.div`
   @media screen and (max-width: 895px) {
     margin: 0;
   }
-`;
+`
 
 export const ContainerItem = styled.div`
   display: flex;
@@ -31,19 +31,19 @@ export const ContainerItem = styled.div`
   @media screen and (max-width: 895px) {
     display: none;
   }
-`;
+`
 
-export const ImagemTeste = styled.img`
+export const ImgMethods = styled.img`
   width: 100%;
 
   @media screen and (min-width: 895px) {
     display: none;
   }
-`;
+`
 
 export const Image = styled.img`
   width: 95px;
-`;
+`
 
 export const InfoShipping = styled.div`
   display: flex;
@@ -60,13 +60,13 @@ export const InfoShipping = styled.div`
     font-weight: bold;
     font-size: 20px;
   }
-`;
+`
 
 export const Title = styled.div`
   font-weight: 500;
   font-size: 24px;
   color: rgba(0, 0, 0, 0.7);
-`;
+`
 
 export const Card = styled.div`
   width: 80px;
@@ -101,27 +101,29 @@ export const Card = styled.div`
       border-radius: 50%;
       background-color: #282b34;
       position: absolute;
-      top: -1px;
+      top: -2px;
       right: -14px;
-      border: 2px solid ${props => props.theme.colors.primary};
+      border: 2px solid #fff;
     }
   }
-`;
+`
 
 export const AreaAbout = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  margin: 70px 0;
+  padding: 70px 0;
   gap: 70px;
-  background-color: ${props =>
-    props.theme.title === 'dark' ? '#A9BCD0' : '#e5e5e5'};
   padding: 100px 0;
 
   .text {
     font-weight: 400;
-    font-size: 18.5px;
-    color: #000;
+    font-size: 18.7px;
+    color: ${props => props.theme.colors.texts.primary};
+
+    @media screen and (max-width: 1090px) {
+      text-align: center;
+    }
   }
 
   @media screen and (max-width: 1090px) {
@@ -132,15 +134,24 @@ export const AreaAbout = styled.div`
 
   @media screen and (max-width: 680px) {
     padding-top: 68px;
+    gap: 20px;
   }
-`;
+`
 
 export const SubTitle = styled.p`
   font-weight: 700;
   font-size: 27px;
-  color: #000;
-  text-align: center;
-`;
+  color: ${props => props.theme.colors.texts.primary};
+  padding: 7px 14px;
+  padding-left: 0;
+  width: max-content;
+  border-bottom: 2px solid ${props => props.theme.colors.background.contrast};
+
+  @media screen and (max-width: 1090px) {
+    width: auto;
+    text-align: center;
+  }
+`
 
 export const Box = styled.div`
   width: 420px;
@@ -159,7 +170,7 @@ export const Box = styled.div`
     height: 340px;
     transform: none;
   }
-`;
+`
 
 export const TextArea = styled.div`
   display: flex;
@@ -167,4 +178,4 @@ export const TextArea = styled.div`
   gap: 15px;
   max-width: 500px;
   padding: 0 15px;
-`;
+`

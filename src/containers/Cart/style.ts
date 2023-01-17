@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
-import { IoIosArrowBack } from 'react-icons/io';
+import { IoIosArrowBack } from 'react-icons/io'
 
 // export const Container = styled.div<{ visible: boolean }>`
 //   width: 100%;
@@ -25,16 +25,16 @@ export const Header = styled.div`
   padding-top: 10px;
 
   p {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 25px;
-    color: rgba(0, 0, 0, 0.8);
+    color: ${props => props.theme.colors.texts.secundary};
   }
-`;
+`
 
 export const ArrowIcon = styled(IoIosArrowBack)`
-  width: 35px;
-  height: 35px;
-  color: #000;
+  width: 32px;
+  height: 32px;
+  color: ${props => props.theme.colors.texts.secundary};
   cursor: pointer;
 
   opacity: 0.8;
@@ -42,7 +42,7 @@ export const ArrowIcon = styled(IoIosArrowBack)`
   &:hover {
     opacity: 1;
   }
-`;
+`
 
 export const CartArea = styled.div<{ isActive: boolean }>`
   display: flex;
@@ -52,7 +52,7 @@ export const CartArea = styled.div<{ isActive: boolean }>`
   width: 500px;
   height: 100vh;
 
-  background-color: ${props => props.theme.colors.primary};
+  background-color: ${props => props.theme.colors.background.paper};
   /* transition: 0.3s; */
   /* top: 0; */
   /* right: ${({ isActive }) => (isActive ? '0' : '-420px')};
@@ -61,7 +61,7 @@ export const CartArea = styled.div<{ isActive: boolean }>`
   @media screen and (max-width: 515px) {
     width: 380px;
   }
-`;
+`
 
 export const ScrollList = styled.div`
   width: 100%;
@@ -72,20 +72,20 @@ export const ScrollList = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
-`;
+`
 
 export const ListArea = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
   width: 100%;
-`;
+`
 
 export const BoxItem = styled.div`
   display: flex;
   gap: 10px;
   width: 100%;
-`;
+`
 
 export const BoxImage = styled.div`
   background-color: #fff;
@@ -96,7 +96,7 @@ export const BoxImage = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 14px;
-`;
+`
 
 export const Image = styled.img`
   width: 110px;
@@ -104,20 +104,13 @@ export const Image = styled.img`
   @media screen and (max-width: 515px) {
     width: 85px;
   }
-`;
+`
 
 export const Title = styled.p`
-  color: #000;
-  font-weight: 600;
+  color: ${props => props.theme.colors.texts.primary};
+  font-weight: 500;
   font-size: 17px;
-  width: 300px;
-
-  color: rgba(0, 0, 0, 0.8);
-
-  @media screen and (max-width: 515px) {
-    width: 240px;
-  }
-`;
+`
 
 export const Info = styled.div`
   display: flex;
@@ -126,8 +119,9 @@ export const Info = styled.div`
   gap: 10px;
 
   .text-price {
-    font-weight: 700;
+    font-weight: 600;
     font-size: 16px;
+    color: ${props => props.theme.colors.texts.secundary};
   }
 
   div {
@@ -141,7 +135,11 @@ export const Info = styled.div`
       gap: 14px;
       width: max-content;
       padding: 0 12px;
-      border: 2px solid rgba(0, 0, 0, 0.1);
+      border: 2px solid
+        ${props =>
+          props.theme.title === 'dark'
+            ? props.theme.colors.background.contrast
+            : '#7f7f7f'};
       border-radius: 5px;
 
       button {
@@ -149,18 +147,19 @@ export const Info = styled.div`
         padding: 0 3px;
         border: none;
         font-size: 22px;
-        color: ${props => (props.theme.title === 'dark' ? '#000' : '#7f7f7f')};
+        color: ${props => (props.theme.title === 'dark' ? '#fff' : '#7f7f7f')};
         cursor: pointer;
       }
 
       p {
         font-weight: 600;
         font-size: 15px;
+        color: ${props => props.theme.colors.texts.primary};
       }
     }
 
     a {
-      color: ${props => (props.theme.title === 'dark' ? '#000' : '#00a8ff')};
+      color: ${props => (props.theme.title === 'dark' ? '#B22222' : '#00a8ff')};
       font-weight: 600;
       cursor: pointer;
 
@@ -169,12 +168,15 @@ export const Info = styled.div`
       }
     }
   }
-`;
+`
 
 export const CartResume = styled.div`
   border-radius: 20px 20px 0 0;
   width: 100%;
-  background-color: #2c2c2c;
+  background-color: ${props =>
+    props.theme.title === 'dark'
+      ? props.theme.colors.background.default
+      : '#2c2c2c'};
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -236,9 +238,9 @@ export const CartResume = styled.div`
       opacity: 0.9;
     }
   }
-`;
+`
 
 export const P = styled.p<{ decoration: boolean }>`
   text-decoration: ${({ decoration }) =>
     decoration ? 'none' : ' line-through'};
-`;
+`
