@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { Home, Products } from '../containers/'
 
 import { CartContextProvider } from '../hooks/CartContext'
@@ -21,6 +21,7 @@ const App = () => {
         <Routes>
           <Route path={paths.home} element={<Home />} />
           <Route path={paths.products} element={<Products />} />
+          <Route path='*' element={<Navigate to={paths.home} />} />
         </Routes>
         <GlobalStyles />
         <ToastContainer theme='dark' autoClose={1850} position='top-left' />
