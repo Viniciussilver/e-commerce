@@ -28,7 +28,7 @@ export const ListArea = styled.div`
     display: none;
   }
 
-  @media screen and (max-width: 620px) {
+  @media (max-width: 620px) {
     width: 365px;
   }
 `

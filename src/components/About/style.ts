@@ -13,12 +13,12 @@ export const Container = styled.div`
     border-radius: 5px;
     border-left: 3px solid rgba(0, 0, 0, 0.5);
 
-    @media screen and (max-width: 895px) {
+    @media (max-width: 895px) {
       display: none;
     }
   }
 
-  @media screen and (max-width: 895px) {
+  @media (max-width: 895px) {
     margin: 0;
   }
 `
@@ -28,7 +28,7 @@ export const ContainerItem = styled.div`
   align-items: center;
   gap: 16px;
 
-  @media screen and (max-width: 895px) {
+  @media (max-width: 895px) {
     display: none;
   }
 `
@@ -36,7 +36,7 @@ export const ContainerItem = styled.div`
 export const ImgMethods = styled.img`
   width: 100%;
 
-  @media screen and (min-width: 895px) {
+  @media (min-width: 895px) {
     display: none;
   }
 `
@@ -121,18 +121,18 @@ export const AreaAbout = styled.div`
     font-size: 18.7px;
     color: ${props => props.theme.colors.texts.primary};
 
-    @media screen and (max-width: 1090px) {
+    @media (max-width: 1090px) {
       text-align: center;
     }
   }
 
-  @media screen and (max-width: 1090px) {
+  @media (max-width: 1090px) {
     flex-direction: column;
     align-items: center;
     margin: 20px 0;
   }
 
-  @media screen and (max-width: 680px) {
+  @media (max-width: 680px) {
     padding-top: 68px;
     gap: 20px;
   }
@@ -147,7 +147,7 @@ export const SubTitle = styled.p`
   width: max-content;
   border-bottom: 2px solid ${props => props.theme.colors.background.contrast};
 
-  @media screen and (max-width: 1090px) {
+  @media (max-width: 1090px) {
     width: auto;
     text-align: center;
   }
@@ -165,7 +165,7 @@ export const Box = styled.div`
   font-size: 20px;
   transform: rotate(-6deg);
 
-  @media screen and (max-width: 1090px) {
+  @media (max-width: 1090px) {
     width: 340px;
     height: 340px;
     transform: none;

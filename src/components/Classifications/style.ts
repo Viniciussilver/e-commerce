@@ -17,7 +17,7 @@ export const Title = styled.h1`
   font-weight: 700;
   font-size: 32px;
 
-  @media screen and (max-width: 1090px) {
+  @media (max-width: 1090px) {
     font-size: 23px;
     font-weight: 600;
   }

@@ -62,7 +62,7 @@ export const CartArea = styled.div`
     opacity: 1;
   }
 
-  @media screen and (max-width: 576px) {
+  @media (max-width: 576px) {
     display: none;
   }
 `
@@ -173,7 +173,7 @@ export const ResponsiveCartArea = styled.div`
     font-size: 15px;
   }
 
-  @media screen and (min-width: 576px) {
+  @media (min-width: 576px) {
     display: none;
   }
 `

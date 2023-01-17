@@ -52,14 +52,14 @@ export const CartArea = styled.div<{ isActive: boolean }>`
   width: 500px;
   height: 100vh;
 
-  background-color: ${props => props.theme.colors.background.paper};
+  background-color: ${props => props.theme.colors.background.default};
   /* transition: 0.3s; */
   /* top: 0; */
   /* right: ${({ isActive }) => (isActive ? '0' : '-420px')};
   z-index: 7; */
 
-  @media screen and (max-width: 515px) {
-    width: 380px;
+  @media (max-width: 515px) {
+    width: 360px;
   }
 `
 
@@ -96,12 +96,16 @@ export const BoxImage = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 14px;
+
+  @media (max-width: 515px) {
+    padding: 12px 7px;
+  }
 `
 
 export const Image = styled.img`
   width: 110px;
 
-  @media screen and (max-width: 515px) {
+  @media (max-width: 515px) {
     width: 85px;
   }
 `
@@ -175,7 +179,7 @@ export const CartResume = styled.div`
   width: 100%;
   background-color: ${props =>
     props.theme.title === 'dark'
-      ? props.theme.colors.background.default
+      ? props.theme.colors.background.paper
       : '#2c2c2c'};
   display: flex;
   flex-direction: column;
@@ -198,7 +202,7 @@ export const CartResume = styled.div`
         width: 100%;
         display: flex;
         justify-content: space-between;
-        gap: 17px;
+        gap: 10px;
         font-weight: 600;
         font-size: 18px;
       }
@@ -210,6 +214,10 @@ export const CartResume = styled.div`
         gap: 20px;
         font-weight: 300;
         font-size: 16.5px;
+
+        @media (max-width: 515px) {
+          gap: 10px;
+        }
       }
     }
 
@@ -220,6 +228,10 @@ export const CartResume = styled.div`
       border-radius: 7px;
       font-weight: 700;
       font-size: 17px;
+
+      @media (max-width: 515px) {
+        padding: 6px 8px;
+      }
     }
   }
   button {

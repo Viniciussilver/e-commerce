@@ -1,10 +1,10 @@
-import * as C from './style';
+import * as C from './style'
 
-import { Drawer } from '@mui/material';
+import { Drawer } from '@mui/material'
 
-import { useState, useEffect } from 'react';
-import { useCart } from '../../hooks/CartContext';
-import { formatCurrency } from '../../utils/format';
+import { useState, useEffect } from 'react'
+import { useCart } from '../../hooks/CartContext'
+import { formatCurrency } from '../../utils/format'
 
 export const Cart = () => {
   const {
@@ -15,20 +15,27 @@ export const Cart = () => {
     increaseProducts,
     removeItem,
     cartQuantity,
-  } = useCart();
+  } = useCart()
 
-  const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState(0)
   // const [items, setItems] = useState<CartItemTypes[]>([]);
-  const frete = 35;
+  const frete = 35
 
   useEffect(() => {
     const total = cartItems.reduce(
       (acc, item) => acc + item.quantity * item.price,
       0
-    );
+    )
 
-    setTotal(total);
-  }, [cartItems]);
+    setTotal(total)
+  }, [cartItems])
+
+  function teste() {
+    var yyy = 45
+
+    console.log('oo')
+  }
+
   return (
     // <C.Container visible={cartOpen}>
     <Drawer
@@ -100,5 +107,5 @@ export const Cart = () => {
       </C.CartArea>
     </Drawer>
     // </C.Container>
-  );
-};
+  )
+}

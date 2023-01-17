@@ -7,7 +7,7 @@ export const Footer = styled.footer`
   justify-content: space-evenly;
   background-color: #000;
 
-  @media screen and (max-width: 1170px) {
+  @media (max-width: 1170px) {
     flex-direction: column;
     gap: 14px;
   }
@@ -18,7 +18,7 @@ export const ContainerItem = styled.div`
   flex-direction: column;
   gap: 10px;
 
-  @media screen and (max-width: 1170px) {
+  @media (max-width: 1170px) {
     padding-bottom: 10px;
     border-bottom: 1.7px solid #eeeeee;
   }
@@ -70,7 +70,7 @@ export const AreaContact = styled.div`
   border-top: 2px solid ${props => props.theme.colors.background.contrast};
   margin-top: 100px;
 
-  @media screen and (max-width: 1115px) {
+  @media (max-width: 1115px) {
     flex-direction: column;
     gap: 20px;
   }
@@ -81,7 +81,7 @@ export const P = styled.p`
   font-size: 18px;
   color: ${props => props.theme.colors.texts.primary};
 
-  @media screen and (max-width: 1115px) {
+  @media (max-width: 1115px) {
     font-size: 17px;
     text-align: center;
   }
@@ -97,7 +97,7 @@ export const Form = styled.div`
     gap: 30px;
     align-items: center;
 
-    @media screen and (max-width: 785px) {
+    @media (max-width: 785px) {
       flex-direction: column;
     }
   }

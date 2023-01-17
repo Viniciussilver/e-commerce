@@ -9,9 +9,12 @@ import * as C from './style'
 import { useCart } from '../../hooks/CartContext'
 import { ProductType } from '../../@types/Product'
 import { Cart } from '../Cart'
+import { useThemeContext } from '../../hooks/ThemeContext'
 
 export const Products = () => {
   const { state } = useLocation()
+
+  const { theme } = useThemeContext()
 
   let initialState = 'All'
   if (state?.category) {
@@ -78,7 +81,11 @@ export const Products = () => {
             right: '50%',
           }}
         >
-          <DotSpinner size={55} speed={0.9} color='black' />
+          <DotSpinner
+            size={55}
+            speed={0.9}
+            color={theme.colors.background.contrast}
+          />
         </div>
       )}
       <Cart />
