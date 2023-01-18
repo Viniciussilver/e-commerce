@@ -1,10 +1,9 @@
-import * as C from './style'
-
+import { useState, useEffect } from 'react'
 import { Drawer } from '@mui/material'
 
-import { useState, useEffect } from 'react'
 import { useCart } from '../../hooks/CartContext'
 import { formatCurrency } from '../../utils/format'
+import * as C from './style'
 
 export const Cart = () => {
   const {

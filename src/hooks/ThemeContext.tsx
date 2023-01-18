@@ -6,8 +6,8 @@ import {
   useEffect,
   useMemo,
 } from 'react'
-
 import { DefaultTheme } from 'styled-components'
+
 import Light from '../styles/themes/light'
 import Dark from '../styles/themes/dark'
 

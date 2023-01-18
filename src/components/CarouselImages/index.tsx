@@ -1,7 +1,4 @@
-import * as C from './style'
-
 import { useContext } from 'react'
-
 import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css' // requires a loader
 
@@ -9,6 +6,7 @@ import Image from '../../assets/image1.jpg'
 import Image2 from '../../assets/image2.webp'
 import Image3 from '../../assets/image3.webp'
 import { ThemeContext } from 'styled-components'
+import * as C from './style'
 
 export const CarouselImages = () => {
   const { title } = useContext(ThemeContext)

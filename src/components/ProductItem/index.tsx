@@ -1,9 +1,9 @@
-import * as C from './style'
+import { toast } from 'react-toastify'
 
+import * as C from './style'
 import { formatCurrency } from '../../utils/format'
 import { ProductType } from '../../@types/Product'
 import { useCart } from '../../hooks/CartContext'
-import { toast } from 'react-toastify'
 
 type Props = {
   item: ProductType

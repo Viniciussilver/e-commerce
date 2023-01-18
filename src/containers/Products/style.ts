@@ -22,6 +22,7 @@ export const RowList = styled.div`
 export const ListArea = styled.div`
   display: flex;
   gap: 10px;
+  margin: 0 15px;
   overflow: auto;
   scroll-behavior: smooth;
   padding: 6px 0;

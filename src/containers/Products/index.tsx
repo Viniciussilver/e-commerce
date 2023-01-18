@@ -4,7 +4,6 @@ import { DotSpinner } from '@uiball/loaders'
 
 import { useFetch } from '../../hooks/useFetch'
 import { Header, ProductItem } from '../../components'
-import { useCart } from '../../hooks/CartContext'
 import { ProductType } from '../../@types/Product'
 import { Cart } from '../Cart'
 import { useThemeContext } from '../../hooks/ThemeContext'
@@ -24,7 +23,7 @@ export const Products = () => {
   const [category, setCategory] = useState(initialState)
 
   const search = useMemo(() => {
-    return searchParams.get('search') || ''
+    return searchParams.get('busca') || ''
   }, [searchParams])
 
   const [inputValue, setInputValue] = useState(search)
@@ -52,12 +51,12 @@ export const Products = () => {
   const handleSearch = () => {
     if (!inputValue) return alert('Erro ao buscar')
 
-    setSearchParams({ search: inputValue })
+    setSearchParams({ busca: inputValue })
   }
 
   const removeParam = () => {
-    if (searchParams.has('search')) {
-      searchParams.delete('search') // deletando parametro de busca
+    if (searchParams.has('busca')) {
+      searchParams.delete('busca') // deletando parametro de busca
       setSearchParams(searchParams) // atualizando
 
       setInputValue('')
@@ -79,6 +78,8 @@ export const Products = () => {
             <C.IconSearch />
           </C.ButtonSearch>
         </C.SearchArea>
+
+        <hr style={{ height: '42px', width: 2 }}></hr>
       </Header>
 
       {!loadingCategories && !loadingProducts && !search && (

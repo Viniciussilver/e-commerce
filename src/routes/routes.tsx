@@ -1,16 +1,11 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { Home, Products } from '../containers/'
-
-import { CartContextProvider } from '../hooks/CartContext'
-import GlobalStyles from '../styles/global.styles'
-
 import { ThemeProvider } from 'styled-components'
 
+import { Home, Products } from '../containers/'
+import { CartContextProvider } from '../hooks/CartContext'
+import GlobalStyles from '../styles/global.styles'
 import paths from '../utils/paths'
 import { useThemeContext } from '../hooks/ThemeContext'
-
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 
 const App = () => {
   const { theme } = useThemeContext()
@@ -24,7 +19,6 @@ const App = () => {
           <Route path='*' element={<Navigate to={paths.home} />} />
         </Routes>
         <GlobalStyles />
-        <ToastContainer theme='dark' autoClose={1850} position='top-left' />
       </CartContextProvider>
     </ThemeProvider>
   )

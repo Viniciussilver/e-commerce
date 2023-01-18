@@ -1,7 +1,7 @@
 import * as C from './style'
 
-import Car from '../../assets/car.png'
-import Methods from '../../assets/sobre.webp'
+// import Car from '../../assets/car.png'
+// import Methods from '../../assets/sobre.webp'
 
 export const About = () => {
   return (

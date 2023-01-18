@@ -1,18 +1,14 @@
-import * as C from './style'
-
-import paths from '../../utils/paths'
-
 import { useState, useEffect } from 'react'
 import { IoIosArrowUp } from 'react-icons/io'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { ReactNode } from 'react'
 
+import * as C from './style'
+import paths from '../../utils/paths'
 import { useFetch } from '../../hooks/useFetch'
 import { useCart } from '../../hooks/CartContext'
 import { formatCurrency } from '../../utils/format'
-
 import { useThemeContext } from '../../hooks/ThemeContext'
-
-import { ReactNode } from 'react'
 
 type HeaderTypes = {
   children?: ReactNode

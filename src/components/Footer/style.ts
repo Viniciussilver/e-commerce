@@ -129,6 +129,7 @@ export const Button = styled.button`
   background-color: ${props => props.theme.colors.background.contrast};
   color: #f5f5f5;
   cursor: pointer;
+  flex: 1;
 
   &:hover {
     opacity: 0.9;

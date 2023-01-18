@@ -26,6 +26,7 @@ export const Image = styled.img`
   height: 130px;
   transform: scale(0.9);
   transition: 0.3s ease;
+  cursor: grab;
 
   &:hover {
     transform: scale(1.2);
