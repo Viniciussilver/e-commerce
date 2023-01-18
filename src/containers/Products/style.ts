@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import { HiOutlineSearch } from 'react-icons/hi'
+
 export const Container = styled.div`
   min-height: 100vh;
   padding: 120px 0;
@@ -9,6 +11,7 @@ export const Container = styled.div`
 `
 
 export const RowList = styled.div`
+  width: 100%;
   display: flex;
   justify-content: center;
   /* ::-webkit-scrollbar {
@@ -20,7 +23,6 @@ export const ListArea = styled.div`
   display: flex;
   gap: 10px;
   overflow: auto;
-  white-space: nowrap;
   scroll-behavior: smooth;
   padding: 6px 0;
 
@@ -49,6 +51,7 @@ export const ButtonCategory = styled.div<{ active: boolean }>`
   cursor: pointer;
   font-weight: 500;
   font-size: 17px;
+  white-space: nowrap;
   transition: 0.2s ease-in-out;
 
   &:hover {
@@ -58,7 +61,7 @@ export const ButtonCategory = styled.div<{ active: boolean }>`
 `
 
 export const ContainerItems = styled.div`
-  max-width: 1200px;
+  max-width: 1460px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -77,4 +80,50 @@ export const ChargingBox = styled.div`
   @media (max-width: 450px) {
     left: 45%;
   }
+`
+
+export const SearchInput = styled.input`
+  width: 100%;
+  height: 100%;
+  padding: 8px 10px;
+  outline: none;
+  background: transparent;
+  border: none;
+  color: #383f51;
+  font-size: 17.8px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+`
+
+export const ButtonSearch = styled.button`
+  width: 55px;
+  height: 100%;
+  position: relative;
+  border: none;
+  background-color: #0058a1;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:active {
+    opacity: 0.8;
+  }
+`
+
+export const IconSearch = styled(HiOutlineSearch)`
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  padding: 8.5px;
+`
+
+export const SearchArea = styled.div`
+  display: flex;
+  align-items: center;
+  height: 45px;
+  min-width: 400px;
+  border-radius: 2px;
+  background-color: #eeeeee;
 `

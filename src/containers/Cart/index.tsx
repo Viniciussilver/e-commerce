@@ -41,7 +41,7 @@ export const Cart = () => {
       <C.CartArea isActive={cartOpen}>
         <C.Header>
           <C.ArrowIcon onClick={() => setCartOpen(false)} />
-          <p>{cartQuantity > 0 ? 'Seu carrinho' : 'Carrinho vazio'}</p>
+          <p>{cartQuantity > 0 ? 'Resumo do carrinho' : 'Carrinho vazio'}</p>
           <span></span>
         </C.Header>
         <C.ScrollList>

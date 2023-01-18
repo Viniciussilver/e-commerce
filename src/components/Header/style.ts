@@ -57,6 +57,8 @@ export const CartArea = styled.div`
   padding: 8px 10px;
   cursor: pointer;
   opacity: 0.9;
+  height: 45px;
+  border-radius: 1px;
 
   &:hover {
     opacity: 1;
@@ -79,7 +81,7 @@ export const Cart = styled(FaShoppingCart)`
 
 export const BoxButton = styled.div`
   width: 46px;
-  height: 16px;
+  height: 17px;
   background-color: ${props => props.theme.colors.background.contrast};
   border-radius: 10px;
   display: flex;
@@ -88,7 +90,7 @@ export const BoxButton = styled.div`
 
 export const Button = styled.button<{ position?: boolean }>`
   width: 21px;
-  height: 20px;
+  height: 21px;
   border-radius: 10px;
   border: none;
   transition: 0.7s all;
@@ -96,7 +98,7 @@ export const Button = styled.button<{ position?: boolean }>`
 
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.8);
 
-  transform: ${({ position }) => (position ? 'none' : 'translateX(30.4px);')};
+  transform: ${({ position }) => (position ? 'none' : 'translateX(29px);')};
 `
 
 export const BoxQuantity = styled.div`

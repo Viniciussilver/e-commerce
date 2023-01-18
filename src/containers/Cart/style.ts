@@ -25,9 +25,9 @@ export const Header = styled.div`
   padding-top: 10px;
 
   p {
-    font-weight: 500;
-    font-size: 25px;
-    color: ${props => props.theme.colors.texts.secundary};
+    font-weight: 700;
+    font-size: 24px;
+    color: ${props => props.theme.colors.texts.primary};
   }
 `
 
@@ -138,11 +138,11 @@ export const Info = styled.div`
       align-items: center;
       gap: 14px;
       width: max-content;
-      padding: 0 12px;
+      padding: 2px 12px;
       border: 2px solid
         ${props =>
           props.theme.title === 'dark'
-            ? props.theme.colors.background.contrast
+            ? props.theme.colors.texts.primary
             : 'rgba(0,0,0,0.3)'};
       border-radius: 5px;
 
@@ -157,14 +157,15 @@ export const Info = styled.div`
 
       p {
         font-weight: 600;
-        font-size: 15px;
+        font-size: 16px;
         color: ${props => props.theme.colors.texts.primary};
       }
     }
 
     a {
-      color: ${props => (props.theme.title === 'dark' ? '#B22222' : '#00a8ff')};
+      color: #00a8ff;
       font-weight: 600;
+      font-size: 17px;
       cursor: pointer;
 
       &:hover {

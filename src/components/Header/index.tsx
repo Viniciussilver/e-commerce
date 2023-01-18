@@ -12,7 +12,13 @@ import { formatCurrency } from '../../utils/format'
 
 import { useThemeContext } from '../../hooks/ThemeContext'
 
-export const Header = () => {
+import { ReactNode } from 'react'
+
+type HeaderTypes = {
+  children?: ReactNode
+}
+
+export const Header = ({ children }: HeaderTypes) => {
   const [visibleCategory, setVisibleCategory] = useState(false)
   const [totalSum, setTotalSum] = useState(0)
 
@@ -88,6 +94,7 @@ export const Header = () => {
       </C.ContainerItems>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+        {children}
         <C.CartArea onClick={() => setCartOpen(true)}>
           <C.Cart />
           <C.BoxQuantity>
