@@ -127,6 +127,19 @@ export const Info = styled.div`
     font-size: 16px;
     color: ${props => props.theme.colors.texts.secundary};
   }
+  /* 
+  .area-total-item {
+    display: flex;
+    gap: 15px;
+  }
+
+  .item-text-total {
+    display: flex;
+    gap: 5px;
+    font-weight: 500;
+    font-size: 16.4px;
+    color: ${props => props.theme.colors.texts.primary};
+  } */
 
   div {
     display: flex;

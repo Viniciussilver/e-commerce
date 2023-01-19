@@ -1,48 +1,55 @@
-import { useState, useEffect } from 'react'
-import { IoIosArrowUp } from 'react-icons/io'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { ReactNode } from 'react'
+import { useState, useEffect } from 'react';
+import { IoIosArrowUp } from 'react-icons/io';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { ReactNode } from 'react';
+import { FaUserCircle } from 'react-icons/fa';
 
-import * as C from './style'
-import paths from '../../utils/paths'
-import { useFetch } from '../../hooks/useFetch'
-import { useCart } from '../../hooks/CartContext'
-import { formatCurrency } from '../../utils/format'
-import { useThemeContext } from '../../hooks/ThemeContext'
+import * as C from './style';
+import paths from '../../utils/paths';
+import { useFetch } from '../../hooks/useFetch';
+import { useCart } from '../../hooks/CartContext';
+import { formatCurrency } from '../../utils/format';
+import { useThemeContext } from '../../hooks/ThemeContext';
 
 type HeaderTypes = {
-  children?: ReactNode
-}
+  children?: ReactNode;
+};
 
 export const Header = ({ children }: HeaderTypes) => {
-  const [visibleCategory, setVisibleCategory] = useState(false)
-  const [totalSum, setTotalSum] = useState(0)
+  const [visibleCategory, setVisibleCategory] = useState(false);
+  const [totalSum, setTotalSum] = useState(0);
 
-  const { cartQuantity, cartItems, setCartOpen } = useCart()
+  const { cartQuantity, cartItems, setCartOpen } = useCart();
 
-  const { toggleTheme, theme } = useThemeContext()
+  const { toggleTheme, theme } = useThemeContext();
 
   useEffect(() => {
     const total = cartItems.reduce(
       (acc, item) => acc + item.quantity * item.price,
       0
-    )
+    );
 
-    setTotalSum(total)
-  }, [cartItems])
+    setTotalSum(total);
+  }, [cartItems]);
 
-  const { pathname } = useLocation()
-  const navigate = useNavigate()
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
-  let { data: categories } = useFetch<string[]>('products/categories') // requisição api categorias
+  let { data: categories } = useFetch<string[]>('products/categories'); // requisição api categorias
 
   if (categories?.length) {
-    categories = ['All', ...categories]
+    categories = ['All', ...categories];
   }
 
   return (
     <C.Container>
       {/* <C.ImgLogo src={Logo} alt='imagem-logo' /> */}
+
+      <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+        <FaUserCircle style={{ width: 29, height: 29, color: '#eee' }} />
+        <C.LinkStyle onClick={() => navigate(paths.login)}>Entrar</C.LinkStyle>
+      </div>
+
       <C.ContainerItems>
         <C.LinkStyle
           onClick={() => navigate(paths.home)}
@@ -111,5 +118,5 @@ export const Header = ({ children }: HeaderTypes) => {
         </C.BoxButton>
       </div>
     </C.Container>
-  )
-}
+  );
+};

@@ -1,4 +1,4 @@
-import * as C from './style'
+import * as C from './style';
 
 import {
   About,
@@ -6,9 +6,9 @@ import {
   EvaluationSession,
   Footer,
   Header,
-} from '../../components'
+} from '../../components';
 
-import { Cart } from '../Cart'
+import { Cart } from '../Cart';
 
 export const Home = () => {
   return (
@@ -20,5 +20,5 @@ export const Home = () => {
       <EvaluationSession />
       <Footer />
     </C.Container>
-  )
-}
+  );
+};

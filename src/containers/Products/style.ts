@@ -74,7 +74,7 @@ export const ContainerItems = styled.div`
 
 export const ChargingBox = styled.div`
   position: absolute;
-  top: 330px;
+  top: 300px;
   left: 50%;
   right: 50%;
 
@@ -101,7 +101,7 @@ export const ButtonSearch = styled.button`
   height: 100%;
   position: relative;
   border: none;
-  background-color: #0058a1;
+  background-color: ${props => props.theme.colors.background.contrast};
   cursor: pointer;
 
   &:hover {

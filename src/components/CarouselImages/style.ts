@@ -1,16 +1,16 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-  margin-top: 75px;
+  margin-top: 71px;
 
   @media (max-width: 576px) {
     margin-top: 70px;
   }
-`
+`;
 
-export const ContainerItem = styled.div``
+export const ContainerItem = styled.div``;
 
-export const Image = styled.img``
+export const Image = styled.img``;
 
-export const ImageAbout = styled.img``
+export const ImageAbout = styled.img``;

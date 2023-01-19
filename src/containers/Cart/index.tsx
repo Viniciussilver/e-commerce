@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Drawer } from '@mui/material'
 
 import { useCart } from '../../hooks/CartContext'
-import { formatCurrency } from '../../utils/format'
+import { formatCurrency, frete } from '../../utils/format'
 import * as C from './style'
 
 export const Cart = () => {
@@ -18,7 +18,6 @@ export const Cart = () => {
 
   const [total, setTotal] = useState(0)
   // const [items, setItems] = useState<CartItemTypes[]>([]);
-  const frete = 35
 
   useEffect(() => {
     const total = cartItems.reduce(
@@ -53,10 +52,33 @@ export const Cart = () => {
                 <C.Info>
                   <C.Title>{item.title}</C.Title>
 
+                  {/* <div className='area-total-item'>
+                    <p className='item-text-total'>
+                      Preço:
+                     
+                    </p>
+
+                    <p className='item-text-total'>
+                      Total:
+                      <p className='text-price'>
+                        {formatCurrency(item.quantity * item.price)}
+                      </p>
+                    </p>
+                  </div> */}
+
                   <p className='text-price'>{formatCurrency(item.price)}</p>
+
                   <div>
                     <div className='box-quantity'>
-                      <button onClick={() => decreaseProducts(item)}>-</button>
+                      <button
+                        style={{
+                          cursor:
+                            item.quantity === 1 ? 'not-allowed' : 'pointer',
+                        }}
+                        onClick={() => decreaseProducts(item)}
+                      >
+                        -
+                      </button>
                       <p>
                         {item.quantity < 10
                           ? `0${item.quantity}`
