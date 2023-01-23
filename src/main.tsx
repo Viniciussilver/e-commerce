@@ -1,16 +1,24 @@
-import ReactDOM from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-import App from './routes/routes'
-import { ThemeContextProvider } from './hooks/ThemeContext'
+import App from './routes/routes';
+import { ThemeContextProvider } from './contexts/ThemeContext';
+import { AuthProvider } from './contexts/Auth';
+import GlobalStyles from './styles/global.styles';
+import { CartContextProvider } from './contexts/CartContext';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <BrowserRouter>
     <ThemeContextProvider>
-      <App />
+      <AuthProvider>
+        <CartContextProvider>
+          <App />
+        </CartContextProvider>
+      </AuthProvider>
     </ThemeContextProvider>
+    <GlobalStyles />
     <ToastContainer theme='dark' autoClose={1850} position='top-left' />
   </BrowserRouter>
-)
+);

@@ -1,23 +1,24 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import { HiOutlineSearch } from 'react-icons/hi'
+import { HiOutlineSearch } from 'react-icons/hi';
 
 export const Container = styled.div`
   min-height: 100vh;
-  padding: 120px 0;
+  padding: 90px 0;
   display: flex;
   flex-direction: column;
   background-color: ${props => props.theme.colors.background.default};
-`
+`;
 
 export const RowList = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  margin: 24px 0;
   /* ::-webkit-scrollbar {
     display: none;
   }*/
-`
+`;
 
 export const ListArea = styled.div`
   display: flex;
@@ -34,7 +35,7 @@ export const ListArea = styled.div`
   @media (max-width: 620px) {
     width: 365px;
   }
-`
+`;
 
 export const ButtonCategory = styled.div<{ active: boolean }>`
   padding: 8px 12px;
@@ -46,9 +47,9 @@ export const ButtonCategory = styled.div<{ active: boolean }>`
       : props.active
       ? '#fff'
       : '#000'};
-  background-color: ${({ active }) => (active ? '#000' : 'transparent')};
+  background-color: ${({ active }) => (active ? '#121214' : 'transparent')};
   border-radius: 20px;
-  border: 2px solid #000;
+  border: 2px solid #121214;
   cursor: pointer;
   font-weight: 500;
   font-size: 17px;
@@ -56,21 +57,21 @@ export const ButtonCategory = styled.div<{ active: boolean }>`
   transition: 0.2s ease-in-out;
 
   &:hover {
-    background-color: #000;
+    background-color: #121214;
     color: #fff;
   }
-`
+`;
 
 export const ContainerItems = styled.div`
-  max-width: 1460px;
+  max-width: 1550px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
 
   margin: 0 auto;
-  gap: 60px;
+  gap: 30px;
   margin-top: 40px;
-`
+`;
 
 export const ChargingBox = styled.div`
   position: absolute;
@@ -81,7 +82,7 @@ export const ChargingBox = styled.div`
   @media (max-width: 450px) {
     left: 45%;
   }
-`
+`;
 
 export const SearchInput = styled.input`
   width: 100%;
@@ -91,10 +92,10 @@ export const SearchInput = styled.input`
   background: transparent;
   border: none;
   color: #383f51;
-  font-size: 17.8px;
+  font-size: 17px;
   font-weight: 500;
   letter-spacing: 0.3px;
-`
+`;
 
 export const ButtonSearch = styled.button`
   width: 55px;
@@ -111,20 +112,20 @@ export const ButtonSearch = styled.button`
   &:active {
     opacity: 0.8;
   }
-`
+`;
 
 export const IconSearch = styled(HiOutlineSearch)`
-  width: 100%;
-  height: 100%;
+  width: 28px;
+  height: 28px;
+  padding-top: 2px;
   color: #fff;
-  padding: 8.5px;
-`
+`;
 
 export const SearchArea = styled.div`
   display: flex;
   align-items: center;
-  height: 45px;
+  height: 44px;
   min-width: 400px;
   border-radius: 2px;
   background-color: #eeeeee;
-`
+`;

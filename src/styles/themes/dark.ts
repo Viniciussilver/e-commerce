@@ -7,8 +7,8 @@ export default {
     },
     background: {
       default: '#222226',
-      paper: '#000',
+      paper: '#121214',
       contrast: '#0058a1',
     },
   },
-}
+};

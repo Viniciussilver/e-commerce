@@ -1,56 +1,93 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { IoIosArrowUp } from 'react-icons/io';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ReactNode } from 'react';
-import { FaUserCircle } from 'react-icons/fa';
 
 import * as C from './style';
 import paths from '../../utils/paths';
-import { useFetch } from '../../hooks/useFetch';
-import { useCart } from '../../hooks/CartContext';
+import { useCart } from '../../contexts/CartContext';
 import { formatCurrency } from '../../utils/format';
-import { useThemeContext } from '../../hooks/ThemeContext';
+import { useThemeContext } from '../../contexts/ThemeContext';
+import { useAuth } from '../../contexts/Auth';
+import requests from '../../services/fakeStore';
+import { ModalAlert } from '../Modal';
 
 type HeaderTypes = {
   children?: ReactNode;
 };
 
 export const Header = ({ children }: HeaderTypes) => {
-  const [visibleCategory, setVisibleCategory] = useState(false);
-  const [totalSum, setTotalSum] = useState(0);
-
-  const { cartQuantity, cartItems, setCartOpen } = useCart();
-
-  const { toggleTheme, theme } = useThemeContext();
-
-  useEffect(() => {
-    const total = cartItems.reduce(
-      (acc, item) => acc + item.quantity * item.price,
-      0
-    );
-
-    setTotalSum(total);
-  }, [cartItems]);
+  const [visibleCategories, setVisibleCategories] = useState(false);
+  const [categories, setCategories] = useState<string[] | null>(null);
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  let { data: categories } = useFetch<string[]>('products/categories'); // requisição api categorias
+  const { user, signOut, toggleModal } = useAuth();
+  const { cartQuantity, setCartOpen, total } = useCart();
+  const { toggleTheme, theme } = useThemeContext();
 
-  if (categories?.length) {
-    categories = ['All', ...categories];
-  }
+  useEffect(() => {
+    const getCategories = async () => {
+      const { categories } = await requests();
+
+      setCategories(['All', ...categories]);
+    };
+
+    getCategories();
+  }, []);
+
+  const verifyUser = () => {
+    if (!!user) {
+      setCartOpen(true);
+    } else {
+      toggleModal();
+    }
+  };
 
   return (
     <C.Container>
-      {/* <C.ImgLogo src={Logo} alt='imagem-logo' /> */}
-
-      <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-        <FaUserCircle style={{ width: 29, height: 29, color: '#eee' }} />
-        <C.LinkStyle onClick={() => navigate(paths.login)}>Entrar</C.LinkStyle>
-      </div>
-
       <C.ContainerItems>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 16,
+          }}
+        >
+          {!user ? (
+            <>
+              <C.LinkStyle
+                isActive={pathname === paths.register}
+                onClick={() => navigate(paths.register)}
+              >
+                Crie a sua conta
+              </C.LinkStyle>
+
+              <C.LinkStyle
+                isActive={pathname === paths.login}
+                onClick={() => navigate(paths.login)}
+              >
+                Entrar
+              </C.LinkStyle>
+            </>
+          ) : (
+            <>
+              <C.IconUser />
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 1.7,
+                }}
+              >
+                <C.TextUser>Olá, {user.name.split(' ')[0]}</C.TextUser>
+              </div>
+              <hr style={{ height: '42px', width: 2 }}></hr>
+            </>
+          )}
+        </div>
+
         <C.LinkStyle
           onClick={() => navigate(paths.home)}
           isActive={pathname === paths.home}
@@ -58,30 +95,47 @@ export const Header = ({ children }: HeaderTypes) => {
           Home
         </C.LinkStyle>
         {pathname !== paths.products && (
-          <C.AreaProducts onClick={() => setVisibleCategory(!visibleCategory)}>
-            <C.LinkStyle isActive={pathname === paths.products}>
+          <C.AreaProducts
+            onMouseEnter={() => setVisibleCategories(true)}
+            onMouseLeave={() => setVisibleCategories(false)}
+          >
+            <C.LinkStyle
+              style={{ display: 'flex', gap: 7, alignItems: 'center' }}
+              isActive={pathname === paths.products}
+            >
               Produtos
+              <IoIosArrowUp
+                style={{
+                  color: theme.colors.texts.primary,
+                  width: 15,
+                  height: 15,
+                  transform: visibleCategories ? 'none' : 'rotate(180deg)',
+                }}
+              />
             </C.LinkStyle>
 
-            <IoIosArrowUp
-              style={{
-                color: theme.colors.texts.primary,
-                width: 15,
-                height: 15,
-                transform: visibleCategory ? 'none' : 'rotate(180deg)',
-              }}
-            />
-
-            <C.ListCategories visible={visibleCategory}>
-              {categories?.map(item => (
-                <C.ButtonLink
-                  key={item}
-                  to={paths.products}
-                  state={{ category: item }}
-                >
-                  <p>{item}</p>
-                </C.ButtonLink>
-              ))}
+            <C.ListCategories isVisible={visibleCategories}>
+              <div className='join'></div>
+              <C.Links>
+                {categories ? (
+                  categories?.map(item => (
+                    <C.ButtonLink
+                      key={item}
+                      to={paths.products}
+                      state={{ category: item }}
+                    >
+                      <p>{item}</p>
+                    </C.ButtonLink>
+                  ))
+                ) : (
+                  <>
+                    <C.ButtonLink to={paths.products}>
+                      <p>Ver produtos</p>
+                    </C.ButtonLink>
+                    <C.TextLoading>Carregando categorias...</C.TextLoading>
+                  </>
+                )}
+              </C.Links>
             </C.ListCategories>
           </C.AreaProducts>
         )}
@@ -91,19 +145,16 @@ export const Header = ({ children }: HeaderTypes) => {
             Produtos
           </C.LinkStyle>
         )}
-
-        {/* <C.LinkStyle isActive={pathname === paths.contact}>Contato</C.LinkStyle>
-        <C.LinkStyle isActive={pathname === paths.login}>Login</C.LinkStyle> */}
       </C.ContainerItems>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 29 }}>
         {children}
-        <C.CartArea onClick={() => setCartOpen(true)}>
+        <C.CartArea onClick={() => verifyUser()}>
           <C.Cart />
           <C.BoxQuantity>
             <C.P color='#fff'>{cartQuantity}</C.P>
           </C.BoxQuantity>
-          <C.P>{formatCurrency(totalSum)}</C.P>
+          <C.P>{formatCurrency(total)}</C.P>
         </C.CartArea>
 
         <C.ResponsiveCartArea onClick={() => setCartOpen(true)}>
@@ -116,7 +167,19 @@ export const Header = ({ children }: HeaderTypes) => {
             position={theme.title === 'light'}
           ></C.Button>
         </C.BoxButton>
+
+        {!!user && (
+          <C.LinkStyle
+            onClick={() => {
+              if (confirm('Você deseja deslogar da sua conta?')) signOut();
+            }}
+          >
+            {' '}
+            Sair
+          </C.LinkStyle>
+        )}
       </div>
+      <ModalAlert />
     </C.Container>
   );
 };

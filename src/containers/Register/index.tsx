@@ -2,28 +2,29 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { toast } from 'react-toastify';
 import { Waveform } from '@uiball/loaders';
 
 import * as C from './style';
-import { auth } from '../../services/firebase';
 import paths from '../../utils/paths';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useAuth } from '../../contexts/Auth';
+import { Header } from '../../components';
 
 type FormTypes = {
+  name: string;
   email: string;
   password: string;
   confirmPassword: string;
 };
 
 export const Register = () => {
-  const [isLoading, setIsLoading] = useState(false);
   const [typeInput, setTypeInput] = useState<'password' | 'text'>('password');
-
   const navigate = useNavigate();
 
+  const { signUp, loadingAuth, user } = useAuth();
+
   const schema = yup.object({
+    name: yup.string().required('O nome é obrigatório'),
     email: yup
       .string()
       .email('Digite um e-mail válido')
@@ -46,40 +47,37 @@ export const Register = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data: FormTypes) => {
-    setIsLoading(true);
+  const onSubmit = async (data: FormTypes) => signUp(data);
 
-    await createUserWithEmailAndPassword(auth, data.email, data.password)
-      .then(() => {
-        toast.success('Cadastro criado com sucesso', {
-          autoClose: 2000,
-        });
-
-        setTimeout(() => {
-          navigate(paths.login, {
-            state: { email: data.email, password: data.password },
-          });
-        }, 1100);
-      })
-      .catch(() =>
-        toast.error('Email já cadastrado', {
-          autoClose: 2000,
-        })
-      )
-      .finally(() => setIsLoading(false));
-  };
+  useEffect(() => {
+    if (!!user) navigate(paths.home);
+  }, []);
 
   return (
     <C.Container>
+      <Header />
       <C.Form onSubmit={handleSubmit(onSubmit)} noValidate>
         <C.Title>Cadastro</C.Title>
+
+        <C.ContainerItem>
+          <C.Label htmlFor='name'>Nome</C.Label>
+          <C.Input
+            id='name'
+            type='text'
+            placeholder='Digite seu nome'
+            {...register('name')}
+          />
+          <C.ErrorBox>
+            <C.Message>{errors.name?.message}</C.Message>
+          </C.ErrorBox>
+        </C.ContainerItem>
 
         <C.ContainerItem>
           <C.Label htmlFor='email'>Email</C.Label>
           <C.Input
             id='email'
             type='email'
-            placeholder='Digite seu email...'
+            placeholder='Digite seu email'
             {...register('email')}
           />
           <C.ErrorBox>
@@ -88,12 +86,12 @@ export const Register = () => {
         </C.ContainerItem>
 
         <C.ContainerItem>
-          <C.Label htmlFor='password'>Senha </C.Label>
+          <C.Label htmlFor='password'>Senha (mínimo 6 caracteres) </C.Label>
 
           <C.Input
             id='password'
             type={typeInput}
-            placeholder='Digite sua senha...'
+            placeholder='Digite sua senha'
             {...register('password')}
           />
           <C.ErrorBox>
@@ -115,7 +113,7 @@ export const Register = () => {
           <C.Input
             id='confirm-password'
             type='password'
-            placeholder='Digite sua senha...'
+            placeholder='Confirme sua senha'
             {...register('confirmPassword')}
           />
           <C.ErrorBox>
@@ -123,8 +121,8 @@ export const Register = () => {
           </C.ErrorBox>
         </C.ContainerItem>
 
-        <C.Button disabled={isLoading} type='submit'>
-          {isLoading ? (
+        <C.Button disabled={loadingAuth} type='submit'>
+          {loadingAuth ? (
             <Waveform size={27} lineWeight={3.7} speed={1} color='white' />
           ) : (
             'Criar'

@@ -4,33 +4,29 @@ import { AiOutlineEye } from 'react-icons/ai';
 import { AiOutlineEyeInvisible } from 'react-icons/ai';
 
 export const Container = styled.div`
-  width: 100vw;
   height: 100vh;
-  background-color: #222226;
+  width: 100vw;
+  background-color: ${props => props.theme.colors.background.default};
 
   display: flex;
   justify-content: center;
   align-items: center;
-
-  @media (max-width: 500px) {
-    background-color: #eee;
-  }
 `;
 
 export const Form = styled.form`
-  max-width: 400px;
+  max-width: 420px;
   width: 100%;
   padding: 50px 30px;
-  background-color: #eee;
+  background-color: ${props => props.theme.colors.background.default};
   border-radius: 10px;
 
   display: flex;
   flex-direction: column;
-  gap: 36px;
+  gap: 28px;
 `;
 
 export const Title = styled.h1`
-  color: #222226;
+  color: ${props => props.theme.colors.texts.secundary};
   border-bottom: 2.5px solid #0058a1;
   width: max-content;
   padding-right: 15px;
@@ -68,6 +64,7 @@ export const Label = styled.label`
   font-weight: 500;
   font-size: 16px;
   padding-left: 6px;
+  color: ${props => props.theme.colors.texts.secundary};
 `;
 
 export const Input = styled.input`
@@ -113,8 +110,9 @@ export const Button = styled.button`
 export const P = styled.p`
   font-weight: 500;
   font-size: 16.3px;
-  margin-top: -19px;
+  margin-top: -16px;
   padding-left: 6px;
+  color: ${props => props.theme.colors.texts.secundary};
 `;
 
 export const ErrorBox = styled.div`
@@ -122,8 +120,6 @@ export const ErrorBox = styled.div`
 `;
 
 export const Message = styled.p`
-  position: absolute;
-  left: 0;
   color: red;
   font-weight: 500;
   font-size: 15px;

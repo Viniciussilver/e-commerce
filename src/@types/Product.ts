@@ -4,7 +4,8 @@ export type ProductType = {
   id: number;
   image: string;
   price: number;
-  quantity?: number;
+  formatedPrice: string;
+  quantity: number;
   rating: {
     rate: number;
     count: number;

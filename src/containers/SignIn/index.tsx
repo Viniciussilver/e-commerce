@@ -2,14 +2,13 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { toast } from 'react-toastify';
 
 import * as C from './style';
-import { auth } from '../../services/firebase';
 import paths from '../../utils/paths';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Waveform } from '@uiball/loaders';
+import { useAuth } from '../../contexts/Auth';
+import { Header } from '../../components';
 
 type FormTypes = {
   email: string;
@@ -18,9 +17,9 @@ type FormTypes = {
 
 export const SignIn = () => {
   const [typeInput, setTypeInput] = useState<'password' | 'text'>('password');
-  const [isLoading, setIsLoading] = useState(false);
-
   const navigate = useNavigate();
+
+  const { signIn, loadingAuth, user } = useAuth();
 
   const { state } = useLocation();
 
@@ -43,31 +42,15 @@ export const SignIn = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data: FormTypes) => {
-    setIsLoading(true);
+  const onSubmit = async (data: FormTypes) => signIn(data);
 
-    const response = await signInWithEmailAndPassword(
-      auth,
-      data.email,
-      data.password
-    )
-      .then(() => {
-        toast.success('Seja bem vindo(a)', {
-          autoClose: 2000,
-        });
-
-        setTimeout(() => navigate(paths.home), 1100);
-      })
-      .catch(() =>
-        toast.error('Verifique seu e-mail e senha', {
-          autoClose: 2000,
-        })
-      )
-      .finally(() => setIsLoading(false));
-  };
+  useEffect(() => {
+    if (!!user) navigate(paths.home);
+  }, []);
 
   return (
     <C.Container>
+      <Header />
       <C.Form onSubmit={handleSubmit(onSubmit)} noValidate>
         <C.Title>Login</C.Title>
 
@@ -76,7 +59,7 @@ export const SignIn = () => {
           <C.Input
             id='email'
             type='email'
-            placeholder='Digite seu email...'
+            placeholder='Digite seu e-mail'
             defaultValue={state?.email}
             {...register('email')}
           />
@@ -91,7 +74,7 @@ export const SignIn = () => {
           <C.Input
             id='password'
             type={typeInput}
-            placeholder='Digite sua senha...'
+            placeholder='Digite sua senha'
             defaultValue={state?.password}
             {...register('password')}
           />
@@ -108,8 +91,8 @@ export const SignIn = () => {
           </C.ErrorBox>
         </C.ContainerItem>
 
-        <C.Button disabled={isLoading} type='submit'>
-          {isLoading ? (
+        <C.Button disabled={loadingAuth} type='submit'>
+          {loadingAuth ? (
             <Waveform size={27} lineWeight={3.7} speed={1} color='white' />
           ) : (
             'Entrar'

@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react'
-import { Drawer } from '@mui/material'
+import { Drawer } from '@mui/material';
 
-import { useCart } from '../../hooks/CartContext'
-import { formatCurrency, frete } from '../../utils/format'
-import * as C from './style'
+import { useCart } from '../../contexts/CartContext';
+import { formatCurrency, frete } from '../../utils/format';
+import * as C from './style';
 
 export const Cart = () => {
   const {
@@ -14,22 +13,10 @@ export const Cart = () => {
     increaseProducts,
     removeItem,
     cartQuantity,
-  } = useCart()
-
-  const [total, setTotal] = useState(0)
-  // const [items, setItems] = useState<CartItemTypes[]>([]);
-
-  useEffect(() => {
-    const total = cartItems.reduce(
-      (acc, item) => acc + item.quantity * item.price,
-      0
-    )
-
-    setTotal(total)
-  }, [cartItems])
+    total,
+  } = useCart();
 
   return (
-    // <C.Container visible={cartOpen}>
     <Drawer
       open={cartOpen}
       variant='temporary'
@@ -52,21 +39,7 @@ export const Cart = () => {
                 <C.Info>
                   <C.Title>{item.title}</C.Title>
 
-                  {/* <div className='area-total-item'>
-                    <p className='item-text-total'>
-                      Preço:
-                     
-                    </p>
-
-                    <p className='item-text-total'>
-                      Total:
-                      <p className='text-price'>
-                        {formatCurrency(item.quantity * item.price)}
-                      </p>
-                    </p>
-                  </div> */}
-
-                  <p className='text-price'>{formatCurrency(item.price)}</p>
+                  <p className='text-price'>{item.formatedPrice}</p>
 
                   <div>
                     <div className='box-quantity'>
@@ -107,7 +80,9 @@ export const Cart = () => {
                 <p>
                   {total > 250
                     ? formatCurrency(total)
-                    : formatCurrency(cartQuantity === 0 ? 0 : total + frete)}
+                    : cartQuantity === 0
+                    ? formatCurrency(0)
+                    : formatCurrency(total + frete)}
                 </p>
               </div>
             </div>
@@ -117,10 +92,9 @@ export const Cart = () => {
             </div>
           </div>
 
-          <button>Confirmar pedido</button>
+          <button disabled={cartQuantity < 1}>Confirmar pedido</button>
         </C.CartResume>
       </C.CartArea>
     </Drawer>
-    // </C.Container>
-  )
-}
+  );
+};

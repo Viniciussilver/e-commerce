@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-  margin-top: 71px;
+  margin-top: 58px;
 
   @media (max-width: 576px) {
     margin-top: 70px;
