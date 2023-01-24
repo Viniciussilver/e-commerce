@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import { IoIosArrowBack } from 'react-icons/io'
+import { IoIosArrowBack } from 'react-icons/io';
 
 // export const Container = styled.div<{ visible: boolean }>`
 //   width: 100%;
@@ -29,7 +29,7 @@ export const Header = styled.div`
     font-size: 24px;
     color: ${props => props.theme.colors.texts.primary};
   }
-`
+`;
 
 export const ArrowIcon = styled(IoIosArrowBack)`
   width: 32px;
@@ -42,7 +42,7 @@ export const ArrowIcon = styled(IoIosArrowBack)`
   &:hover {
     opacity: 1;
   }
-`
+`;
 
 export const CartArea = styled.div<{ isActive: boolean }>`
   display: flex;
@@ -61,7 +61,7 @@ export const CartArea = styled.div<{ isActive: boolean }>`
   @media (max-width: 515px) {
     width: 360px;
   }
-`
+`;
 
 export const ScrollList = styled.div`
   width: 100%;
@@ -72,20 +72,20 @@ export const ScrollList = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
-`
+`;
 
 export const ListArea = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
   width: 100%;
-`
+`;
 
 export const BoxItem = styled.div`
   display: flex;
   gap: 10px;
   width: 100%;
-`
+`;
 
 export const BoxImage = styled.div`
   background-color: #fff;
@@ -100,7 +100,7 @@ export const BoxImage = styled.div`
   @media (max-width: 515px) {
     padding: 12px 7px;
   }
-`
+`;
 
 export const Image = styled.img`
   width: 110px;
@@ -108,13 +108,13 @@ export const Image = styled.img`
   @media (max-width: 515px) {
     width: 85px;
   }
-`
+`;
 
 export const Title = styled.p`
   color: ${props => props.theme.colors.texts.primary};
   font-weight: 500;
   font-size: 17px;
-`
+`;
 
 export const Info = styled.div`
   display: flex;
@@ -186,7 +186,7 @@ export const Info = styled.div`
       }
     }
   }
-`
+`;
 
 export const CartResume = styled.div`
   border-radius: 20px 20px 0 0;
@@ -248,25 +248,9 @@ export const CartResume = styled.div`
       }
     }
   }
-  button {
-    margin: 16px auto;
-    width: 60%;
-    background-color: #fff;
-    border-radius: 14px;
-    color: #000;
-    border: none;
-    padding: 8px 0;
-    font-weight: 600;
-    font-size: 18px;
-    cursor: pointer;
-
-    &:hover {
-      opacity: 0.9;
-    }
-  }
-`
+`;
 
 export const P = styled.p<{ decoration: boolean }>`
   text-decoration: ${({ decoration }) =>
     decoration ? 'none' : ' line-through'};
-`
+`;

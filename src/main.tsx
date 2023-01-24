@@ -8,6 +8,7 @@ import { ThemeContextProvider } from './contexts/ThemeContext';
 import { AuthProvider } from './contexts/Auth';
 import GlobalStyles from './styles/global.styles';
 import { CartContextProvider } from './contexts/CartContext';
+import { ModalAlert } from './components';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <BrowserRouter>
@@ -15,6 +16,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <AuthProvider>
         <CartContextProvider>
           <App />
+          <ModalAlert />
         </CartContextProvider>
       </AuthProvider>
     </ThemeContextProvider>

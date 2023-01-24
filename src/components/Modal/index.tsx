@@ -1,8 +1,9 @@
-import { Box, Button, Modal, Typography } from '@mui/material';
+import { Box, Modal, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import { useAuth } from '../../contexts/Auth';
 import paths from '../../utils/paths';
+import { Button } from '../Button';
 
 export const ModalAlert = () => {
   const { isOpenModal, toggleModal } = useAuth();
@@ -22,7 +23,7 @@ export const ModalAlert = () => {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    gap: 0.5,
+    gap: 0.7,
   };
 
   return (
@@ -42,8 +43,9 @@ export const ModalAlert = () => {
               navigate(paths.register);
               toggleModal();
             }}
-            variant='contained'
-            sx={{ width: '100%' }}
+            styles={{
+              width: '60%',
+            }}
           >
             Cadastrar
           </Button>
@@ -52,8 +54,12 @@ export const ModalAlert = () => {
               navigate(paths.login);
               toggleModal();
             }}
-            variant='outlined'
-            sx={{ width: '100%' }}
+            styles={{
+              width: '60%',
+              background: 'transparent',
+              color: '#0058a1',
+              border: '1px solid #0058a1',
+            }}
           >
             Entrar
           </Button>

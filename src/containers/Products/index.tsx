@@ -29,9 +29,9 @@ export const Products = () => {
   }, [searchParams]);
 
   const [inputValue, setInputValue] = useState(search);
+  const [isActiveInputArea, setIsActiveInputArea] = useState(false);
   const [allProducts, setAllProducts] = useState<ProductType[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
-  const [imagesLoading, setImagesLoding] = useState<boolean[]>([]);
   const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
@@ -56,16 +56,14 @@ export const Products = () => {
 
     if (category === 'All') {
       setFilteredProducts(allProducts);
-
-      // setImagesLoding(new Array(allProducts.length).fill(true));
     } else {
       const newList = allProducts.filter(item => item.category === category);
 
       setFilteredProducts(newList);
-
-      // setImagesLoding(new Array(newList.length).fill(true));
     }
   }, [category, allProducts]);
+
+  useEffect(() => {}, []);
 
   const handleSearch = () => {
     if (!inputValue) return alert('Erro ao buscar');
@@ -79,15 +77,19 @@ export const Products = () => {
       setSearchParams(searchParams); // atualizando
 
       setInputValue('');
+      setIsActiveInputArea(false);
     }
   };
 
   return (
     <C.Container>
       <Header>
-        <C.SearchArea>
+        <C.IconSearchHeader
+          onClick={() => setIsActiveInputArea(value => !value)}
+        />
+        <C.SearchArea isActive={isActiveInputArea}>
           <C.SearchInput
-            type='text'
+            type='search'
             value={inputValue}
             placeholder='Pesquisar produto'
             onChange={e => setInputValue(e.target.value)}
@@ -118,13 +120,7 @@ export const Products = () => {
           </C.RowList>
           <C.ContainerItems>
             {filteredProducts.map((item, index) => (
-              <ProductItem
-                key={index}
-                item={item}
-                index={index}
-                imagesLoading={imagesLoading}
-                setImagesLoading={newArray => setImagesLoding(newArray)}
-              />
+              <ProductItem key={index} item={item} />
             ))}
           </C.ContainerItems>
         </>

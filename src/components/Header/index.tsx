@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { IoIosArrowUp } from 'react-icons/io';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ReactNode } from 'react';
@@ -10,7 +10,6 @@ import { formatCurrency } from '../../utils/format';
 import { useThemeContext } from '../../contexts/ThemeContext';
 import { useAuth } from '../../contexts/Auth';
 import requests from '../../services/fakeStore';
-import { ModalAlert } from '../Modal';
 
 type HeaderTypes = {
   children?: ReactNode;
@@ -37,7 +36,7 @@ export const Header = ({ children }: HeaderTypes) => {
     getCategories();
   }, []);
 
-  const verifyUser = () => {
+  const checkUser = () => {
     if (!!user) {
       setCartOpen(true);
     } else {
@@ -87,13 +86,6 @@ export const Header = ({ children }: HeaderTypes) => {
             </>
           )}
         </div>
-
-        <C.LinkStyle
-          onClick={() => navigate(paths.home)}
-          isActive={pathname === paths.home}
-        >
-          Home
-        </C.LinkStyle>
         {pathname !== paths.products && (
           <C.AreaProducts
             onMouseEnter={() => setVisibleCategories(true)}
@@ -147,9 +139,9 @@ export const Header = ({ children }: HeaderTypes) => {
         )}
       </C.ContainerItems>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: 29 }}>
+      <div className='items-header'>
         {children}
-        <C.CartArea onClick={() => verifyUser()}>
+        <C.CartArea onClick={() => checkUser()}>
           <C.Cart />
           <C.BoxQuantity>
             <C.P color='#fff'>{cartQuantity}</C.P>
@@ -179,7 +171,6 @@ export const Header = ({ children }: HeaderTypes) => {
           </C.LinkStyle>
         )}
       </div>
-      <ModalAlert />
     </C.Container>
   );
 };

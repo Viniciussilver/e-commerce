@@ -93,7 +93,7 @@ export const AuthProvider = ({ children }: AuthProviderTypes) => {
                   autoClose: 2000,
                 });
 
-                setTimeout(() => navigate(paths.home), 1000);
+                setTimeout(() => navigate(paths.products), 1000);
               }
             });
         });
@@ -141,7 +141,7 @@ export const AuthProvider = ({ children }: AuthProviderTypes) => {
     } catch (err) {
       console.log(err);
 
-      toast.error('Erro ao criar conta', {
+      toast.error('E-mail já cadastrado', {
         autoClose: 1900,
       });
       setLoadingAuth(false);

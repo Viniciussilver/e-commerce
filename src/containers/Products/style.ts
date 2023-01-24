@@ -8,6 +8,15 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${props => props.theme.colors.background.default};
+
+  .map {
+    width: 500px;
+    height: 500px;
+  }
+
+  @media (max-width: 1130px) {
+    padding-top: 110px;
+  }
 `;
 
 export const RowList = styled.div`
@@ -30,10 +39,6 @@ export const ListArea = styled.div`
 
   ::-webkit-scrollbar {
     display: none;
-  }
-
-  @media (max-width: 620px) {
-    width: 365px;
   }
 `;
 
@@ -78,10 +83,6 @@ export const ChargingBox = styled.div`
   top: 300px;
   left: 50%;
   right: 50%;
-
-  @media (max-width: 450px) {
-    left: 45%;
-  }
 `;
 
 export const SearchInput = styled.input`
@@ -89,12 +90,16 @@ export const SearchInput = styled.input`
   height: 100%;
   padding: 8px 10px;
   outline: none;
-  background: transparent;
+  background-color: #eee;
   border: none;
   color: #383f51;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 500;
   letter-spacing: 0.3px;
+
+  @media (max-width: 1130px) {
+    background-color: #fff;
+  }
 `;
 
 export const ButtonSearch = styled.button`
@@ -102,7 +107,8 @@ export const ButtonSearch = styled.button`
   height: 100%;
   position: relative;
   border: none;
-  background-color: ${props => props.theme.colors.background.contrast};
+  background-color: ${props =>
+    props.theme.title === 'dark' ? '#121214' : '#000'};
   cursor: pointer;
 
   &:hover {
@@ -112,20 +118,58 @@ export const ButtonSearch = styled.button`
   &:active {
     opacity: 0.8;
   }
+
+  @media (min-width: 1131px) {
+    background-color: ${props => props.theme.colors.background.contrast};
+  }
 `;
 
 export const IconSearch = styled(HiOutlineSearch)`
-  width: 28px;
-  height: 28px;
+  width: 27px;
+  height: 27px;
   padding-top: 2px;
   color: #fff;
 `;
 
-export const SearchArea = styled.div`
+export const IconSearchHeader = styled(HiOutlineSearch)`
+  width: 30px;
+  height: 30px;
+  color: ${props => props.theme.colors.texts.secundary};
+  cursor: pointer;
+  position: relative;
+  bottom: 3px;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  @media (min-width: 1131px) {
+    display: none;
+  }
+`;
+
+export const SearchArea = styled.div<{ isActive: boolean }>`
   display: flex;
   align-items: center;
-  height: 44px;
-  min-width: 400px;
+  height: 43px;
+  width: 350px;
   border-radius: 2px;
   background-color: #eeeeee;
+
+  @media (max-width: 1130px) {
+    border: 1px solid #000;
+    width: 45%;
+    background-color: transparent;
+    position: absolute;
+    top: 111%;
+    right: 28%;
+    transform: ${props => (props.isActive ? 'scaleY(1)' : 'scaleY(0)')};
+    transform-origin: top;
+    transition: 0.1s linear;
+  }
+
+  @media (max-width: 670px) {
+    width: 80%;
+    right: 10%;
+  }
 `;

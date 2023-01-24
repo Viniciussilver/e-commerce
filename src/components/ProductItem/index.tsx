@@ -1,4 +1,5 @@
 import { toast } from 'react-toastify';
+import 'lazysizes';
 
 import * as C from './style';
 import { ProductType } from '../../@types/Product';
@@ -7,25 +8,15 @@ import { useAuth } from '../../contexts/Auth';
 
 type Props = {
   item: ProductType;
-  imagesLoading?: boolean[];
-  index?: number;
-  setImagesLoading?: (e: boolean[]) => void;
 };
 
-export const ProductItem = ({
-  item,
-  imagesLoading,
-  index,
-  setImagesLoading,
-}: Props) => {
+export const ProductItem = ({ item }: Props) => {
   const { putProductsInCart, cartItems } = useCart();
   const { user, toggleModal } = useAuth();
 
-  const checkItem = (product: ProductType) => {
+  const handleClick = (product: ProductType) => {
     //
-    if (!user) {
-      return toggleModal();
-    }
+    if (!user) return toggleModal();
 
     const index = cartItems.findIndex(item => item.id === product.id);
 
@@ -41,21 +32,7 @@ export const ProductItem = ({
   return (
     <C.Container>
       <C.AreaImg>
-        {/* {imagesLoading[index] && (
-          <DotPulse size={32} speed={1.2} color='black' />
-        )} */}
-        <C.Image
-          // style={{ display: imagesLoading[index] ? 'none' : 'block' }}
-          src={item.image}
-          loading='lazy'
-          alt='imagem-produto'
-          // onLoad={() => {
-          //   const newArray = [...imagesLoading];
-          //   newArray[index] = false;
-
-          //   setImagesLoading(newArray);
-          // }}
-        />
+        <C.Image src={item.image} alt='imagem-produto' className='lozad' />
       </C.AreaImg>
 
       <C.NameText>{item.title}</C.NameText>
@@ -89,7 +66,7 @@ export const ProductItem = ({
         }}
       >
         <C.P>{item.formatedPrice}</C.P>
-        <C.Button onClick={() => checkItem(item)}>ADD</C.Button>
+        <C.Button onClick={() => handleClick(item)}>ADD</C.Button>
       </div>
     </C.Container>
   );

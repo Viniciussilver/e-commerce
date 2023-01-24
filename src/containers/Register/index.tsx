@@ -8,7 +8,7 @@ import * as C from './style';
 import paths from '../../utils/paths';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../contexts/Auth';
-import { Header } from '../../components';
+import { Button, Header } from '../../components';
 
 type FormTypes = {
   name: string;
@@ -50,7 +50,7 @@ export const Register = () => {
   const onSubmit = async (data: FormTypes) => signUp(data);
 
   useEffect(() => {
-    if (!!user) navigate(paths.home);
+    if (!!user) navigate(paths.products);
   }, []);
 
   return (
@@ -61,12 +61,7 @@ export const Register = () => {
 
         <C.ContainerItem>
           <C.Label htmlFor='name'>Nome</C.Label>
-          <C.Input
-            id='name'
-            type='text'
-            placeholder='Digite seu nome'
-            {...register('name')}
-          />
+          <C.Input id='name' type='text' {...register('name')} />
           <C.ErrorBox>
             <C.Message>{errors.name?.message}</C.Message>
           </C.ErrorBox>
@@ -74,12 +69,7 @@ export const Register = () => {
 
         <C.ContainerItem>
           <C.Label htmlFor='email'>Email</C.Label>
-          <C.Input
-            id='email'
-            type='email'
-            placeholder='Digite seu email'
-            {...register('email')}
-          />
+          <C.Input id='email' type='email' {...register('email')} />
           <C.ErrorBox>
             <C.Message>{errors.email?.message}</C.Message>
           </C.ErrorBox>
@@ -88,12 +78,7 @@ export const Register = () => {
         <C.ContainerItem>
           <C.Label htmlFor='password'>Senha (mínimo 6 caracteres) </C.Label>
 
-          <C.Input
-            id='password'
-            type={typeInput}
-            placeholder='Digite sua senha'
-            {...register('password')}
-          />
+          <C.Input id='password' type={typeInput} {...register('password')} />
           <C.ErrorBox>
             <C.Message>{errors.password?.message}</C.Message>
             <C.OutlineEye
@@ -113,7 +98,6 @@ export const Register = () => {
           <C.Input
             id='confirm-password'
             type='password'
-            placeholder='Confirme sua senha'
             {...register('confirmPassword')}
           />
           <C.ErrorBox>
@@ -121,13 +105,13 @@ export const Register = () => {
           </C.ErrorBox>
         </C.ContainerItem>
 
-        <C.Button disabled={loadingAuth} type='submit'>
+        <Button disabled={loadingAuth} type='submit'>
           {loadingAuth ? (
             <Waveform size={27} lineWeight={3.7} speed={1} color='white' />
           ) : (
             'Criar'
           )}
-        </C.Button>
+        </Button>
 
         <C.P>
           Já possuí conta?{' '}

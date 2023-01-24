@@ -1,8 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
-import { Home, Products, Register, SignIn } from '../containers/';
-import { CartContextProvider } from '../contexts/CartContext';
+import { Products, Register, SignIn } from '../containers/';
 import paths from '../utils/paths';
 import { useThemeContext } from '../contexts/ThemeContext';
 
@@ -12,11 +11,10 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Routes>
-        <Route path={paths.home} element={<Home />} />
         <Route path={paths.products} element={<Products />} />
         <Route path={paths.login} element={<SignIn />} />
         <Route path={paths.register} element={<Register />} />
-        <Route path='*' element={<Navigate to={paths.home} />} />
+        <Route path='*' element={<Navigate to={paths.products} />} />
       </Routes>
     </ThemeProvider>
   );

@@ -8,7 +8,7 @@ import paths from '../../utils/paths';
 import { useEffect, useState } from 'react';
 import { Waveform } from '@uiball/loaders';
 import { useAuth } from '../../contexts/Auth';
-import { Header } from '../../components';
+import { Button, Header } from '../../components';
 
 type FormTypes = {
   email: string;
@@ -45,7 +45,7 @@ export const SignIn = () => {
   const onSubmit = async (data: FormTypes) => signIn(data);
 
   useEffect(() => {
-    if (!!user) navigate(paths.home);
+    if (!!user) navigate(paths.products);
   }, []);
 
   return (
@@ -91,13 +91,13 @@ export const SignIn = () => {
           </C.ErrorBox>
         </C.ContainerItem>
 
-        <C.Button disabled={loadingAuth} type='submit'>
+        <Button type='submit' disabled={loadingAuth}>
           {loadingAuth ? (
             <Waveform size={27} lineWeight={3.7} speed={1} color='white' />
           ) : (
             'Entrar'
           )}
-        </C.Button>
+        </Button>
 
         <C.P>
           Não possuí conta?{' '}

@@ -82,31 +82,6 @@ export const Input = styled.input`
   border: 1.7px solid #222226;
 `;
 
-export const Button = styled.button`
-  width: 100%;
-  border: none;
-
-  height: 50px;
-  border-radius: 14px;
-  background-color: #0058a1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  color: #fff;
-  font-weight: 500;
-  font-size: 17.5px;
-  cursor: pointer;
-
-  &:hover {
-    opacity: 0.9;
-  }
-
-  &:active {
-    opacity: 0.8;
-  }
-`;
-
 export const P = styled.p`
   font-weight: 500;
   font-size: 16px;

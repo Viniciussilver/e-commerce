@@ -18,6 +18,16 @@ export const Container = styled.div`
   /* box-shadow: 0.5px 0.5px 10px 0.5px #000; */
   box-shadow: 0 0 8px #333;
   z-index: 5;
+
+  .items-header {
+    display: flex;
+    align-items: center;
+    gap: 27px;
+
+    @media (max-width: 840px) {
+      gap: 20px;
+    }
+  }
 `;
 
 export const ImgLogo = styled.img`
@@ -40,7 +50,7 @@ export const LinkStyle = styled.a<{ isActive?: boolean }>`
   position: relative;
 
   opacity: 0.8;
-  padding: 1.5px 6px;
+  padding: 1px 6px;
   border-bottom: ${props =>
     props.isActive
       ? `2px solid ${props.theme.colors.background.contrast}`
@@ -98,7 +108,7 @@ export const CartArea = styled.div`
     opacity: 1;
   }
 
-  @media (max-width: 576px) {
+  @media (max-width: 839px) {
     display: none;
   }
 `;
@@ -106,10 +116,10 @@ export const CartArea = styled.div`
 export const Cart = styled(FaShoppingCart)`
   width: 25px;
   height: 25px;
-  color: ${props => (props.theme.title === 'dark' ? '#121214' : '#000')};
+  color: #000;
 
-  @media (max-width: 576px) {
-    color: ${props => props.theme.colors.texts.primary};
+  @media (max-width: 839px) {
+    color: ${props => props.theme.colors.texts.secundary};
   }
 `;
 
@@ -240,7 +250,7 @@ export const ResponsiveCartArea = styled.div`
     font-size: 15px;
   }
 
-  @media (min-width: 576px) {
+  @media (min-width: 840px) {
     display: none;
   }
 `;

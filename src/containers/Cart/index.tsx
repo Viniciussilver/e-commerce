@@ -1,4 +1,6 @@
 import { Drawer } from '@mui/material';
+import 'lazysizes';
+import { Button } from '../../components';
 
 import { useCart } from '../../contexts/CartContext';
 import { formatCurrency, frete } from '../../utils/format';
@@ -34,7 +36,11 @@ export const Cart = () => {
             {cartItems.map(item => (
               <C.BoxItem key={item.id}>
                 <C.BoxImage>
-                  <C.Image src={item.image} alt='imagem-produto' />
+                  <C.Image
+                    src={item.image}
+                    alt='imagem-produto'
+                    className='lozad'
+                  />
                 </C.BoxImage>
                 <C.Info>
                   <C.Title>{item.title}</C.Title>
@@ -92,7 +98,18 @@ export const Cart = () => {
             </div>
           </div>
 
-          <button disabled={cartQuantity < 1}>Confirmar pedido</button>
+          <Button
+            disabled={cartQuantity < 1}
+            styles={{
+              marginInline: 'auto',
+              marginBlock: '16px',
+              width: '60%',
+              backgroundColor: '#fff',
+              color: '#000',
+            }}
+          >
+            Confirmar pedido
+          </Button>
         </C.CartResume>
       </C.CartArea>
     </Drawer>
