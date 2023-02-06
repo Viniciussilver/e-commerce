@@ -18,6 +18,7 @@ export const Button = ({
   styles,
 }: ButtonTypes) => {
   //
+
   return (
     <StyledButton
       style={{ ...styles }}
