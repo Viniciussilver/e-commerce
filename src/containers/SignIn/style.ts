@@ -73,11 +73,11 @@ export const Input = styled.input`
 
   font-weight: 500;
   font-size: 15.3px;
-  color: rgba(0, 0, 0, 0.9r);
+  color: rgba(0, 0, 0, 0.9);
 
   outline: none;
-  border-radius: 14px;
-  border: 1.7px solid #222226;
+  border-radius: 7px;
+  border: 1.7px solid #ccc;
 `;
 
 export const P = styled.p`

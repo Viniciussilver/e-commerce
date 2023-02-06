@@ -44,7 +44,8 @@ export const ModalAlert = () => {
               toggleModal();
             }}
             styles={{
-              width: '60%',
+              width: '55%',
+              height: '35px',
             }}
           >
             Cadastrar
@@ -55,7 +56,8 @@ export const ModalAlert = () => {
               toggleModal();
             }}
             styles={{
-              width: '60%',
+              height: '35px',
+              width: '55%',
               background: 'transparent',
               color: '#0058a1',
               border: '1px solid #0058a1',

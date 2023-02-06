@@ -78,8 +78,8 @@ export const Input = styled.input`
   color: rgba(0, 0, 0, 0.9r);
 
   outline: none;
-  border-radius: 14px;
-  border: 1.7px solid #222226;
+  border-radius: 7px;
+  border: 1.7px solid #ccc;
 `;
 
 export const P = styled.p`

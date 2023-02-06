@@ -91,7 +91,7 @@ export const BoxImage = styled.div`
   background-color: #fff;
   /* width: 150px;
   height: 150px; */
-  padding: 12px 12px;
+  padding: 12px;
   display: flex;
   align-items: center;
   justify-content: center;

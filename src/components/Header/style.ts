@@ -100,9 +100,9 @@ export const CartArea = styled.div`
   background-color: #eeeeee;
   padding: 8px 10px;
   cursor: pointer;
-  opacity: 0.9;
   height: 44px;
   border-radius: 1px;
+  opacity: 0.9;
 
   &:hover {
     opacity: 1;

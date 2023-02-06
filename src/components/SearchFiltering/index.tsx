@@ -35,7 +35,7 @@ export const SearchFiltering = ({
         </>
       )}
 
-      {items.length === 0 && (
+      {!items.length && (
         <C.AreaSearchNotFound>
           <C.NotFoundText>
             Não há produtos que correspondem à sua busca.

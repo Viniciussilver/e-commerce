@@ -1,7 +1,6 @@
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { Toaster } from 'react-hot-toast';
 
 import App from './routes/routes';
 import { ThemeContextProvider } from './contexts/ThemeContext';
@@ -21,6 +20,13 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       </AuthProvider>
     </ThemeContextProvider>
     <GlobalStyles />
-    <ToastContainer theme='dark' autoClose={1850} position='top-left' />
+    <Toaster
+      position='top-left'
+      containerStyle={{
+        top: 75,
+        left: 20,
+      }}
+      toastOptions={{ duration: 2000 }}
+    />
   </BrowserRouter>
 );

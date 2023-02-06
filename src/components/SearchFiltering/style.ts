@@ -16,10 +16,10 @@ export const ContainerItems = styled.div<{ header?: boolean }>`
   ${props =>
     props.header &&
     `
-  width: 75%;
+      width: 75%;
       justify-content: space-between;
-    
-      padding: 8px 15px;
+      gap: 10px;
+      padding: 10px 17px;
       border-radius: 6px;
       background-color: #fff;
       // border: 1px solid #000;

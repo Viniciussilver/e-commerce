@@ -6,6 +6,7 @@ import {
   useEffect,
   useMemo,
 } from 'react';
+import toast from 'react-hot-toast';
 import { ProductType } from '../@types/Product';
 
 type CartProviderProps = {
@@ -21,13 +22,19 @@ type ContextType = {
   increaseProducts: (item: ProductType) => void;
   decreaseProducts: (item: ProductType) => void;
   removeItem: (item: ProductType) => void;
+  resetCart: () => void;
   total: number;
+  subTotal: number;
 };
+
+export const frete = 35;
 
 const CartContext = createContext({} as ContextType);
 
 export const CartContextProvider = ({ children }: CartProviderProps) => {
   const [cartOpen, setCartOpen] = useState(false);
+  const [total, setTotal] = useState(0);
+  const [subTotal, setSubTotal] = useState(0);
   const [cartItems, setCartItems] = useState<ProductType[]>(() => {
     const storedStateAsJSON = localStorage.getItem('@e-commerce:cartInfo');
 
@@ -44,8 +51,33 @@ export const CartContextProvider = ({ children }: CartProviderProps) => {
     localStorage.setItem('@e-commerce:cartInfo', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const putProductsInCart = (product: ProductType) =>
-    setCartItems([...cartItems, product]);
+  useEffect(() => {
+    const totalSum = cartItems.reduce(
+      (acc, item) => acc + item.quantity * item.price,
+      0
+    );
+
+    setSubTotal(totalSum);
+
+    if (totalSum > 250) {
+      setTotal(totalSum);
+    } else {
+      setTotal(totalSum + frete);
+    }
+  }, [cartItems]);
+
+  const putProductsInCart = (product: ProductType) => {
+    const index = cartItems.some(item => item.id === product.id);
+
+    if (!index) {
+      setCartItems([...cartItems, product]);
+      toast.success('Produto adicionado ao carrinho');
+    } else {
+      toast('Produto já foi adicionado', {
+        icon: '⏩',
+      });
+    }
+  };
 
   const increaseProducts = (product: ProductType) => {
     const newCart = cartItems.map(item => {
@@ -56,10 +88,6 @@ export const CartContextProvider = ({ children }: CartProviderProps) => {
 
     setCartItems(newCart);
   };
-
-  const total = useMemo(() => {
-    return cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
-  }, [cartItems]);
 
   const decreaseProducts = (product: ProductType) => {
     if (product.quantity === 1) return;
@@ -78,6 +106,8 @@ export const CartContextProvider = ({ children }: CartProviderProps) => {
     setCartItems(newCart);
   };
 
+  const resetCart = () => setCartItems([]);
+
   return (
     <CartContext.Provider
       value={{
@@ -89,7 +119,9 @@ export const CartContextProvider = ({ children }: CartProviderProps) => {
         increaseProducts,
         decreaseProducts,
         removeItem,
+        resetCart,
         total,
+        subTotal,
       }}
     >
       {children}

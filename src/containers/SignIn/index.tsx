@@ -10,6 +10,8 @@ import { Waveform } from '@uiball/loaders';
 import { useAuth } from '../../contexts/Auth';
 import { Button, Header } from '../../components';
 
+import firebase from '../../services/firebase';
+
 type FormTypes = {
   email: string;
   password: string;
@@ -59,7 +61,7 @@ export const SignIn = () => {
           <C.Input
             id='email'
             type='email'
-            placeholder='Digite seu e-mail'
+            placeholder='example@gmail.com'
             defaultValue={state?.email}
             {...register('email')}
           />
@@ -74,7 +76,7 @@ export const SignIn = () => {
           <C.Input
             id='password'
             type={typeInput}
-            placeholder='Digite sua senha'
+            placeholder='***********'
             defaultValue={state?.password}
             {...register('password')}
           />

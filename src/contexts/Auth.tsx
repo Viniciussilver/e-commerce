@@ -6,8 +6,7 @@ import {
   useState,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-
+import toast from 'react-hot-toast';
 import firebase from '../services/firebase';
 import paths from '../utils/paths';
 
@@ -79,22 +78,20 @@ export const AuthProvider = ({ children }: AuthProviderTypes) => {
               console.log(infoUser.data());
 
               if (!infoUser.exists) {
-                toast.error('Verifique seu e-mail e senha', {
-                  autoClose: 2000,
-                });
-              } else {
+                return toast.error('Verifique seu e-mail e senha');
+              }
+
+              toast.success('Seja bem vindo(a)');
+
+              setTimeout(() => {
+                navigate(paths.products);
+
                 setUser({
                   uid: value.user?.uid as string,
                   name: infoUser.data()?.name,
                   email: infoUser.data()?.email,
                 });
-
-                toast.success('Seja bem vindo(a)', {
-                  autoClose: 2000,
-                });
-
-                setTimeout(() => navigate(paths.products), 1000);
-              }
+              }, 1000);
             });
         });
     } catch (err) {
@@ -102,9 +99,7 @@ export const AuthProvider = ({ children }: AuthProviderTypes) => {
 
       console.log(err);
 
-      toast.error('Verifique seu e-mail e senha', {
-        autoClose: 2000,
-      });
+      toast.error('Verifique seu e-mail e senha');
     }
   };
 
@@ -123,13 +118,12 @@ export const AuthProvider = ({ children }: AuthProviderTypes) => {
             .set({
               name: data.name,
               email: data.email,
+              pedidos: null,
             })
             .then(() => {
               setLoadingAuth(false);
 
-              toast.success('Cadastro criado com sucesso', {
-                autoClose: 1600,
-              });
+              toast.success('Cadastro criado com sucesso');
 
               setTimeout(() => {
                 navigate(paths.login, {
@@ -141,9 +135,7 @@ export const AuthProvider = ({ children }: AuthProviderTypes) => {
     } catch (err) {
       console.log(err);
 
-      toast.error('E-mail já cadastrado', {
-        autoClose: 1900,
-      });
+      toast.error('E-mail já cadastrado');
       setLoadingAuth(false);
     }
   };

@@ -61,7 +61,12 @@ export const Register = () => {
 
         <C.ContainerItem>
           <C.Label htmlFor='name'>Nome</C.Label>
-          <C.Input id='name' type='text' {...register('name')} />
+          <C.Input
+            id='name'
+            type='text'
+            {...register('name')}
+            placeholder='Seu nome'
+          />
           <C.ErrorBox>
             <C.Message>{errors.name?.message}</C.Message>
           </C.ErrorBox>
@@ -69,7 +74,12 @@ export const Register = () => {
 
         <C.ContainerItem>
           <C.Label htmlFor='email'>Email</C.Label>
-          <C.Input id='email' type='email' {...register('email')} />
+          <C.Input
+            id='email'
+            type='email'
+            {...register('email')}
+            placeholder='Seu e-mail'
+          />
           <C.ErrorBox>
             <C.Message>{errors.email?.message}</C.Message>
           </C.ErrorBox>
@@ -78,7 +88,12 @@ export const Register = () => {
         <C.ContainerItem>
           <C.Label htmlFor='password'>Senha (mínimo 6 caracteres) </C.Label>
 
-          <C.Input id='password' type={typeInput} {...register('password')} />
+          <C.Input
+            id='password'
+            type={typeInput}
+            {...register('password')}
+            placeholder='Sua senha'
+          />
           <C.ErrorBox>
             <C.Message>{errors.password?.message}</C.Message>
             <C.OutlineEye
@@ -99,6 +114,7 @@ export const Register = () => {
             id='confirm-password'
             type='password'
             {...register('confirmPassword')}
+            placeholder='Sua senha'
           />
           <C.ErrorBox>
             <C.Message>{errors.confirmPassword?.message}</C.Message>

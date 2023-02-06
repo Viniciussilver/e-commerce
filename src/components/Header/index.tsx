@@ -23,7 +23,7 @@ export const Header = ({ children }: HeaderTypes) => {
   const navigate = useNavigate();
 
   const { user, signOut, toggleModal } = useAuth();
-  const { cartQuantity, setCartOpen, total } = useCart();
+  const { cartQuantity, setCartOpen, subTotal } = useCart();
   const { toggleTheme, theme } = useThemeContext();
 
   useEffect(() => {
@@ -137,6 +137,8 @@ export const Header = ({ children }: HeaderTypes) => {
             Produtos
           </C.LinkStyle>
         )}
+
+        {!!user && <C.LinkStyle>Seus pedidos</C.LinkStyle>}
       </C.ContainerItems>
 
       <div className='items-header'>
@@ -146,19 +148,13 @@ export const Header = ({ children }: HeaderTypes) => {
           <C.BoxQuantity>
             <C.P color='#fff'>{cartQuantity}</C.P>
           </C.BoxQuantity>
-          <C.P>{formatCurrency(total)}</C.P>
+          <C.P>{formatCurrency(subTotal)}</C.P>
         </C.CartArea>
 
         <C.ResponsiveCartArea onClick={() => setCartOpen(true)}>
           {cartQuantity > 0 && <div>{cartQuantity}</div>}
           <C.Cart />
         </C.ResponsiveCartArea>
-        <C.BoxButton>
-          <C.Button
-            onClick={() => toggleTheme()}
-            position={theme.title === 'light'}
-          ></C.Button>
-        </C.BoxButton>
 
         {!!user && (
           <C.LinkStyle
@@ -170,6 +166,13 @@ export const Header = ({ children }: HeaderTypes) => {
             Sair
           </C.LinkStyle>
         )}
+
+        <C.BoxButton>
+          <C.Button
+            onClick={() => toggleTheme()}
+            position={theme.title === 'light'}
+          ></C.Button>
+        </C.BoxButton>
       </div>
     </C.Container>
   );

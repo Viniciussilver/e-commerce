@@ -1,4 +1,5 @@
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 import 'lazysizes';
 
 import * as C from './style';
@@ -11,22 +12,14 @@ type Props = {
 };
 
 export const ProductItem = ({ item }: Props) => {
-  const { putProductsInCart, cartItems } = useCart();
+  const { putProductsInCart } = useCart();
   const { user, toggleModal } = useAuth();
 
   const handleClick = (product: ProductType) => {
     //
     if (!user) return toggleModal();
 
-    const index = cartItems.findIndex(item => item.id === product.id);
-
-    if (index < 0) {
-      toast.success('Produto adicionado');
-
-      putProductsInCart({ ...product, quantity: 1 });
-    } else {
-      toast.info('Produto já foi adicionado');
-    }
+    putProductsInCart({ ...product, quantity: 1 });
   };
 
   return (

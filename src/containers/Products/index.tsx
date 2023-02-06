@@ -22,7 +22,6 @@ export const Products = () => {
 
   const [filteredProducts, setFilteredProducts] = useState<ProductType[]>([]);
   const [category, setCategory] = useState(initialState);
-  // const [searchFiltering, setSearchFiltering] = useState<ProductType[]>([]);
 
   const search = useMemo(() => {
     return searchParams.get('busca') || '';
@@ -68,7 +67,11 @@ export const Products = () => {
   const handleSearch = () => {
     if (!inputValue) return alert('Erro ao buscar');
 
+    setIsFetching(true);
+
     setSearchParams({ busca: inputValue });
+
+    setTimeout(() => setIsFetching(false), 1600);
   };
 
   const removeParam = () => {
@@ -89,7 +92,7 @@ export const Products = () => {
         />
         <C.SearchArea isActive={isActiveInputArea}>
           <C.SearchInput
-            type='search'
+            type='text'
             value={inputValue}
             placeholder='Pesquisar produto'
             onChange={e => setInputValue(e.target.value)}

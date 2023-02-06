@@ -91,6 +91,7 @@ export const SearchInput = styled.input`
   padding: 8px 10px;
   outline: none;
   background-color: #eee;
+  opacity: 0.9;
   border: none;
   color: #383f51;
   font-size: 16px;
