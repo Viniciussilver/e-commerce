@@ -1,13 +1,13 @@
-import { ProductType } from '../../@types/Product';
+import { ICartItem } from '../../@types/Cart';
 import { formatCurrency } from '../../utils/format';
 import * as C from './style';
 
-type CheckoutItemsTypes = {
-  products: ProductType[];
+interface ICheckoutItems {
+  products: ICartItem[];
   total: number;
-};
+}
 
-export const CheckoutItems = ({ products, total }: CheckoutItemsTypes) => {
+export const CheckoutItems = ({ products, total }: ICheckoutItems) => {
   return (
     <C.ContainerListProducts>
       <C.Header>
@@ -22,7 +22,7 @@ export const CheckoutItems = ({ products, total }: CheckoutItemsTypes) => {
             <C.Image src={item.image} alt='imagem produto' />
             <C.InfoProducts>
               <C.TextName>{item.title}</C.TextName>
-              <C.TextQuantity>Quantidade {item.quantity}</C.TextQuantity>
+              <C.TextQuantity>Quantidade: {item.quantity}</C.TextQuantity>
               <C.TextTotalProduct>
                 {' '}
                 {formatCurrency(item.quantity * item.price)}

@@ -2,8 +2,8 @@ import { useEffect, useState, useMemo } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { DotSpinner } from '@uiball/loaders';
 
-import { Header, ProductItem, SearchFiltering } from '../../components';
-import { ProductType } from '../../@types/Product';
+import { Header, Orders, ProductItem, SearchFiltering } from '../../components';
+import { IProduct } from '../../@types/Product';
 import { Cart } from '../Cart';
 import { useThemeContext } from '../../contexts/ThemeContext';
 import * as C from './style';
@@ -20,7 +20,10 @@ export const Products = () => {
     initialState = state.category;
   }
 
-  const [filteredProducts, setFilteredProducts] = useState<ProductType[]>([]);
+  const location = useLocation();
+  const [showOrders, setShowOrders] = useState(false);
+
+  const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
   const [category, setCategory] = useState(initialState);
 
   const search = useMemo(() => {
@@ -29,7 +32,7 @@ export const Products = () => {
 
   const [inputValue, setInputValue] = useState(search);
   const [isActiveInputArea, setIsActiveInputArea] = useState(false);
-  const [allProducts, setAllProducts] = useState<ProductType[]>([]);
+  const [allProducts, setAllProducts] = useState<IProduct[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
   const [isFetching, setIsFetching] = useState(false);
 
@@ -39,7 +42,7 @@ export const Products = () => {
 
       setIsFetching(false);
 
-      const newProducts = (products as ProductType[]).map(item => {
+      const newProducts = (products as IProduct[]).map(item => {
         return { ...item, formatedPrice: formatCurrency(item.price) };
       });
 
@@ -86,7 +89,7 @@ export const Products = () => {
 
   return (
     <C.Container>
-      <Header>
+      <Header setShowOrders={setShowOrders}>
         <C.IconSearchHeader
           onClick={() => setIsActiveInputArea(value => !value)}
         />
@@ -148,6 +151,7 @@ export const Products = () => {
           />
         </C.ChargingBox>
       )}
+      {showOrders && <Orders setShowOrders={setShowOrders} />}
       <Cart />
     </C.Container>
   );

@@ -11,11 +11,12 @@ import { useThemeContext } from '../../contexts/ThemeContext';
 import { useAuth } from '../../contexts/Auth';
 import requests from '../../services/fakeStore';
 
-type HeaderTypes = {
+interface IHeader {
   children?: ReactNode;
-};
+  setShowOrders?: (e: boolean) => void;
+}
 
-export const Header = ({ children }: HeaderTypes) => {
+export const Header = ({ children, setShowOrders }: IHeader) => {
   const [visibleCategories, setVisibleCategories] = useState(false);
   const [categories, setCategories] = useState<string[] | null>(null);
 
@@ -138,7 +139,11 @@ export const Header = ({ children }: HeaderTypes) => {
           </C.LinkStyle>
         )}
 
-        {!!user && <C.LinkStyle>Seus pedidos</C.LinkStyle>}
+        {!!user && (
+          <C.LinkStyle onClick={() => setShowOrders && setShowOrders(true)}>
+            Seus pedidos
+          </C.LinkStyle>
+        )}
       </C.ContainerItems>
 
       <div className='items-header'>

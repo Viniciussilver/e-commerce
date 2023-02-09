@@ -7,35 +7,35 @@ import {
   useMemo,
 } from 'react';
 import toast from 'react-hot-toast';
-import { ProductType } from '../@types/Product';
+import { ICartItem } from '../@types/Cart';
 
-type CartProviderProps = {
+interface ICartProvider {
   children: ReactNode;
-};
+}
 
-type ContextType = {
-  cartItems: ProductType[];
-  putProductsInCart: (item: ProductType) => void;
+interface IContext {
+  cartItems: ICartItem[];
+  putProductsInCart: (item: ICartItem) => void;
   cartQuantity: number;
   cartOpen: boolean;
   setCartOpen: (e: boolean) => void;
-  increaseProducts: (item: ProductType) => void;
-  decreaseProducts: (item: ProductType) => void;
-  removeItem: (item: ProductType) => void;
+  increaseProducts: (item: ICartItem) => void;
+  decreaseProducts: (item: ICartItem) => void;
+  removeItem: (item: ICartItem) => void;
   resetCart: () => void;
   total: number;
   subTotal: number;
-};
+}
 
 export const frete = 35;
 
-const CartContext = createContext({} as ContextType);
+const CartContext = createContext({} as IContext);
 
-export const CartContextProvider = ({ children }: CartProviderProps) => {
+export const CartContextProvider = ({ children }: ICartProvider) => {
   const [cartOpen, setCartOpen] = useState(false);
   const [total, setTotal] = useState(0);
   const [subTotal, setSubTotal] = useState(0);
-  const [cartItems, setCartItems] = useState<ProductType[]>(() => {
+  const [cartItems, setCartItems] = useState<ICartItem[]>(() => {
     const storedStateAsJSON = localStorage.getItem('@e-commerce:cartInfo');
 
     if (storedStateAsJSON) {
@@ -66,7 +66,7 @@ export const CartContextProvider = ({ children }: CartProviderProps) => {
     }
   }, [cartItems]);
 
-  const putProductsInCart = (product: ProductType) => {
+  const putProductsInCart = (product: ICartItem) => {
     const index = cartItems.some(item => item.id === product.id);
 
     if (!index) {
@@ -79,7 +79,7 @@ export const CartContextProvider = ({ children }: CartProviderProps) => {
     }
   };
 
-  const increaseProducts = (product: ProductType) => {
+  const increaseProducts = (product: ICartItem) => {
     const newCart = cartItems.map(item => {
       return item.id === product.id
         ? { ...item, quantity: item.quantity + 1 }
@@ -89,7 +89,7 @@ export const CartContextProvider = ({ children }: CartProviderProps) => {
     setCartItems(newCart);
   };
 
-  const decreaseProducts = (product: ProductType) => {
+  const decreaseProducts = (product: ICartItem) => {
     if (product.quantity === 1) return;
 
     const newCart = cartItems.map(item => {
@@ -101,7 +101,7 @@ export const CartContextProvider = ({ children }: CartProviderProps) => {
     setCartItems(newCart);
   };
 
-  const removeItem = (product: ProductType) => {
+  const removeItem = (product: ICartItem) => {
     const newCart = cartItems.filter(item => item.id !== product.id);
     setCartItems(newCart);
   };

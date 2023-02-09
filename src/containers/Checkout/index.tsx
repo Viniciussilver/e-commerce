@@ -1,13 +1,8 @@
-import React, {
-  FormEvent,
-  ReactNode,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { FormEvent, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import IMask from 'imask';
 import toast from 'react-hot-toast';
+import { v4 as uuid } from 'uuid';
 
 import { Button, CheckoutItems } from '../../components';
 import { useCart } from '../../contexts/CartContext';
@@ -16,37 +11,8 @@ import firebase from '../../services/firebase';
 import paths from '../../utils/paths';
 import { useAuth } from '../../contexts/Auth';
 import * as C from './style';
-
-type FormValues = {
-  nome: string;
-  email: string;
-  telefone: string;
-  rua: string;
-  complemento?: string;
-  cidade: string;
-  numero: number;
-  bairro: string;
-  cep: string;
-  estado: string;
-};
-
-type InputAreaFormTypes = {
-  label: string;
-  id?: string;
-  children: ReactNode;
-};
-
-const InputAreaForm = ({ label, id, children }: InputAreaFormTypes) => {
-  return (
-    <C.InputArea>
-      <C.Label htmlFor={id}>
-        {label}
-        <span>*</span>{' '}
-      </C.Label>
-      {children}
-    </C.InputArea>
-  );
-};
+import { InputAreaForm } from './InputAreaForm';
+import { IForm } from '../../@types/Form';
 
 export const CheckoutForm: React.FC = () => {
   const { user } = useAuth();
@@ -66,7 +32,8 @@ export const CheckoutForm: React.FC = () => {
       mask: '(00) 00000-0000',
     });
 
-    if (!location.state?.checkout || !user) navigate(paths.products);
+    if (!location.state?.checkout || !user || !cartItems)
+      navigate(paths.products);
   }, []);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -74,7 +41,7 @@ export const CheckoutForm: React.FC = () => {
 
     const formData = new FormData(event.currentTarget);
 
-    let values = {} as FormValues;
+    let values = {} as IForm;
 
     formData.forEach((value, key) => {
       values = { ...values, [key]: value };
@@ -94,7 +61,9 @@ export const CheckoutForm: React.FC = () => {
     const regexCep = /^[0-9]{5}-[0-9]{3}$/;
     if (!regexCep.test(values.cep)) return alertErrorSubmitForm('Cep invalido');
 
+    const orderId = uuid();
     const newOrder = {
+      id: orderId,
       data: new Date(),
       ...values,
       valor: total,
@@ -118,7 +87,9 @@ export const CheckoutForm: React.FC = () => {
     );
 
     setTimeout(() => {
-      navigate(paths.products, { state: { showOrders: true } });
+      navigate(paths.products, {
+        state: { showOrders: true, orderId: orderId },
+      });
       resetCart();
     }, 1200);
   };

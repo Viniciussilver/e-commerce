@@ -104,6 +104,7 @@ export const Cart = () => {
               width: '60%',
               backgroundColor: '#fff',
               color: '#000',
+              cursor: cartQuantity < 1 && 'not-allowed',
             }}
             disabled={cartQuantity < 1}
             onClick={() => {

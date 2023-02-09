@@ -10,25 +10,25 @@ import toast from 'react-hot-toast';
 import firebase from '../services/firebase';
 import paths from '../utils/paths';
 
-type SignUpTypes = {
+interface ISignUp {
   name: string;
   email: string;
   password: string;
-};
+}
 
-type AuthContextTypes = {
+interface IAuthContext {
   signIn: (data: { email: string; password: string }) => void;
-  signUp: (data: SignUpTypes) => void;
+  signUp: (data: ISignUp) => void;
   signOut: () => void;
   loadingAuth: boolean;
   user: UserTypes | null;
   isOpenModal: boolean;
   toggleModal: () => void;
-};
+}
 
-type AuthProviderTypes = {
+interface IAuthProvider {
   children: ReactNode;
-};
+}
 
 type UserTypes = {
   uid: string;
@@ -36,9 +36,9 @@ type UserTypes = {
   email: string;
 };
 
-const AuthContext = createContext({} as AuthContextTypes);
+const AuthContext = createContext({} as IAuthContext);
 
-export const AuthProvider = ({ children }: AuthProviderTypes) => {
+export const AuthProvider = ({ children }: IAuthProvider) => {
   const [loadingAuth, setLoadingAuth] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [user, setUser] = useState<UserTypes | null>(() => {
@@ -103,7 +103,7 @@ export const AuthProvider = ({ children }: AuthProviderTypes) => {
     }
   };
 
-  const signUp = async (data: SignUpTypes) => {
+  const signUp = async (data: ISignUp) => {
     setLoadingAuth(true);
 
     try {
@@ -143,10 +143,10 @@ export const AuthProvider = ({ children }: AuthProviderTypes) => {
   const signOut = () => {
     firebase.auth().signOut();
     //
+    window.location.reload();
+
     localStorage.clear();
     setUser(null);
-
-    window.location.reload();
   };
 
   return (

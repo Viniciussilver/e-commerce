@@ -11,18 +11,18 @@ import { DefaultTheme } from 'styled-components';
 import Light from '../styles/themes/light';
 import Dark from '../styles/themes/dark';
 
-type CartProviderProps = {
+interface IThemeProvider {
   children: ReactNode;
-};
+}
 
-type ContextType = {
+interface IContext {
   theme: DefaultTheme;
   toggleTheme: () => void;
-};
+}
 
-const ThemeContext = createContext({} as ContextType);
+const ThemeContext = createContext({} as IContext);
 
-export const ThemeContextProvider = ({ children }: CartProviderProps) => {
+export const ThemeContextProvider = ({ children }: IThemeProvider) => {
   const [themeName, setThemeName] = useState<'light' | 'dark'>(() => {
     const themeSaved = localStorage.getItem('@theme');
 

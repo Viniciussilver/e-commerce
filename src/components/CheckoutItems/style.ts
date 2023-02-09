@@ -41,7 +41,6 @@ export const Header = styled.div`
 export const TextName = styled.p`
   font-weight: 300;
   font-size: 15.7px;
-  width: 90%;
   color: ${props => props.theme.colors.texts.secundary};
 `;
 export const TextQuantity = styled.p`
@@ -77,15 +76,16 @@ export const AreaProducts = styled.div`
 `;
 
 export const ProductItem = styled.div`
-  width: 97%;
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 16px;
   padding: 10px 0;
+  padding-right: 20px;
 `;
 
 export const Image = styled.img`
-  width: 85px;
+  width: 90px;
   height: 95px;
   border-radius: 5px;
 `;

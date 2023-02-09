@@ -3,23 +3,31 @@ import toast from 'react-hot-toast';
 import 'lazysizes';
 
 import * as C from './style';
-import { ProductType } from '../../@types/Product';
+import { IProduct } from '../../@types/Product';
 import { useCart } from '../../contexts/CartContext';
 import { useAuth } from '../../contexts/Auth';
 
-type Props = {
-  item: ProductType;
-};
+interface Props {
+  item: IProduct;
+}
 
 export const ProductItem = ({ item }: Props) => {
   const { putProductsInCart } = useCart();
   const { user, toggleModal } = useAuth();
 
-  const handleClick = (product: ProductType) => {
+  const handleClick = (product: IProduct) => {
     //
     if (!user) return toggleModal();
 
-    putProductsInCart({ ...product, quantity: 1 });
+    putProductsInCart({
+      category: product.category,
+      formatedPrice: product.formatedPrice,
+      price: product.price,
+      id: product.id,
+      quantity: 1,
+      title: product.title,
+      image: product.image,
+    });
   };
 
   return (

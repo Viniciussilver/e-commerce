@@ -1,13 +1,13 @@
-import { ProductType } from '../../@types/Product';
+import { IProduct } from '../../@types/Product';
 import { ProductItem } from '../ProductItem';
 
 import * as C from './style';
 
-type FilteringTypes = {
-  items: ProductType[];
+interface FilteringTypes {
+  items: IProduct[];
   undoClick: () => void;
   valueSearch: string;
-};
+}
 
 export const SearchFiltering = ({
   items,

@@ -1,4 +1,4 @@
-export type ProductType = {
+export interface IProduct {
   category: string;
   description: string;
   id: number;
@@ -11,4 +11,4 @@ export type ProductType = {
     count: number;
   };
   title: string;
-};
+}

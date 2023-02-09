@@ -2,13 +2,13 @@ import { ReactNode } from 'react';
 
 import { StyledButton } from './style';
 
-type ButtonTypes = {
+interface ButtonTypes {
   children: ReactNode;
   onClick?: () => void;
   type?: 'button' | 'reset' | 'submit';
   disabled?: boolean;
   styles?: any;
-};
+}
 
 export const Button = ({
   children,
