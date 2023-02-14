@@ -61,6 +61,7 @@ export const SignIn = () => {
           <C.Input
             id='email'
             type='email'
+            autoComplete='email'
             placeholder='example@gmail.com'
             defaultValue={state?.email}
             {...register('email')}

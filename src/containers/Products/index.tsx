@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { DotSpinner } from '@uiball/loaders';
 
 import { Header, Orders, ProductItem, SearchFiltering } from '../../components';
@@ -10,21 +10,29 @@ import * as C from './style';
 import requests from '../../services/fakeStore';
 import { formatCurrency } from '../../utils/format';
 
+export interface IShowOrder {
+  showOrder: boolean;
+  orderId: string | null;
+}
+
 export const Products = () => {
-  const { state } = useLocation();
   const { theme } = useThemeContext();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  let initialState = 'All';
-  if (state?.category) {
-    initialState = state.category;
-  }
+  const [showOrders, setShowOrders] = useState<IShowOrder>(() => {
+    const orderInfo = localStorage.getItem('@showOrder');
 
-  const location = useLocation();
-  const [showOrders, setShowOrders] = useState(false);
+    if (orderInfo) {
+      localStorage.removeItem('@showOrder');
+
+      return JSON.parse(orderInfo);
+    }
+
+    return { showOrder: false, orderId: null };
+  });
 
   const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
-  const [category, setCategory] = useState(initialState);
+  const [category, setCategory] = useState('All');
 
   const search = useMemo(() => {
     return searchParams.get('busca') || '';
@@ -145,13 +153,15 @@ export const Products = () => {
       {isFetching && (
         <C.ChargingBox>
           <DotSpinner
-            size={54}
+            size={52}
             speed={1}
             color={theme.colors.background.contrast}
           />
         </C.ChargingBox>
       )}
-      {showOrders && <Orders setShowOrders={setShowOrders} />}
+      {showOrders.showOrder && (
+        <Orders setShowOrders={setShowOrders} orderId={showOrders.orderId} />
+      )}
       <Cart />
     </C.Container>
   );

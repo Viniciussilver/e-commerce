@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react';
-import { IoIosArrowUp } from 'react-icons/io';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ReactNode } from 'react';
 
@@ -9,17 +7,14 @@ import { useCart } from '../../contexts/CartContext';
 import { formatCurrency } from '../../utils/format';
 import { useThemeContext } from '../../contexts/ThemeContext';
 import { useAuth } from '../../contexts/Auth';
-import requests from '../../services/fakeStore';
+import { IShowOrder } from '../../containers';
 
 interface IHeader {
   children?: ReactNode;
-  setShowOrders?: (e: boolean) => void;
+  setShowOrders?: (e: IShowOrder) => void;
 }
 
 export const Header = ({ children, setShowOrders }: IHeader) => {
-  const [visibleCategories, setVisibleCategories] = useState(false);
-  const [categories, setCategories] = useState<string[] | null>(null);
-
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -27,22 +22,12 @@ export const Header = ({ children, setShowOrders }: IHeader) => {
   const { cartQuantity, setCartOpen, subTotal } = useCart();
   const { toggleTheme, theme } = useThemeContext();
 
-  useEffect(() => {
-    const getCategories = async () => {
-      const { categories } = await requests();
-
-      setCategories(['All', ...categories]);
-    };
-
-    getCategories();
-  }, []);
-
   const checkUser = () => {
     if (!!user) {
-      setCartOpen(true);
-    } else {
-      toggleModal();
+      return setCartOpen(true);
     }
+
+    toggleModal();
   };
 
   return (
@@ -87,61 +72,21 @@ export const Header = ({ children, setShowOrders }: IHeader) => {
             </>
           )}
         </div>
-        {pathname !== paths.products && (
-          <C.AreaProducts
-            onMouseEnter={() => setVisibleCategories(true)}
-            onMouseLeave={() => setVisibleCategories(false)}
-          >
-            <C.LinkStyle
-              style={{ display: 'flex', gap: 7, alignItems: 'center' }}
-              isActive={pathname === paths.products}
-            >
-              Produtos
-              <IoIosArrowUp
-                style={{
-                  color: theme.colors.texts.primary,
-                  width: 15,
-                  height: 15,
-                  transform: visibleCategories ? 'none' : 'rotate(180deg)',
-                }}
-              />
-            </C.LinkStyle>
 
-            <C.ListCategories isVisible={visibleCategories}>
-              <div className='join'></div>
-              <C.Links>
-                {categories ? (
-                  categories?.map(item => (
-                    <C.ButtonLink
-                      key={item}
-                      to={paths.products}
-                      state={{ category: item }}
-                    >
-                      <p>{item}</p>
-                    </C.ButtonLink>
-                  ))
-                ) : (
-                  <>
-                    <C.ButtonLink to={paths.products}>
-                      <p>Ver produtos</p>
-                    </C.ButtonLink>
-                    <C.TextLoading>Carregando categorias...</C.TextLoading>
-                  </>
-                )}
-              </C.Links>
-            </C.ListCategories>
-          </C.AreaProducts>
-        )}
-
-        {pathname === paths.products && (
-          <C.LinkStyle isActive={pathname === paths.products}>
-            Produtos
-          </C.LinkStyle>
-        )}
+        <C.LinkStyle
+          isActive={pathname === paths.products}
+          onClick={() => navigate(paths.products)}
+        >
+          Produtos
+        </C.LinkStyle>
 
         {!!user && (
-          <C.LinkStyle onClick={() => setShowOrders && setShowOrders(true)}>
-            Seus pedidos
+          <C.LinkStyle
+            onClick={() =>
+              setShowOrders && setShowOrders({ showOrder: true, orderId: null })
+            }
+          >
+            Meus pedidos
           </C.LinkStyle>
         )}
       </C.ContainerItems>

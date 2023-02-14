@@ -1,8 +1,8 @@
 import { Drawer } from '@mui/material';
 import 'lazysizes';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '../../components';
 
+import { Button } from '../../components';
 import { frete, useCart } from '../../contexts/CartContext';
 import { formatCurrency } from '../../utils/format';
 import paths from '../../utils/paths';

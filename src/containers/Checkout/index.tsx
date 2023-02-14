@@ -86,10 +86,14 @@ export const CheckoutForm: React.FC = () => {
       }
     );
 
+    localStorage.setItem(
+      '@showOrder',
+      JSON.stringify({ showOrder: true, orderId: orderId })
+    );
+
     setTimeout(() => {
-      navigate(paths.products, {
-        state: { showOrders: true, orderId: orderId },
-      });
+      navigate(paths.products);
+
       resetCart();
     }, 1200);
   };

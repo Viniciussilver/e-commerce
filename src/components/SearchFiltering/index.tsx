@@ -2,7 +2,6 @@ import { IProduct } from '../../@types/Product';
 import { ProductItem } from '../ProductItem';
 
 import * as C from './style';
-
 interface FilteringTypes {
   items: IProduct[];
   undoClick: () => void;
