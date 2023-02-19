@@ -1,5 +1,4 @@
 import { Drawer } from '@mui/material';
-import 'lazysizes';
 import { useNavigate } from 'react-router-dom';
 
 import { Button } from '../../components';

@@ -3,7 +3,7 @@ import { IForm } from './Form';
 
 export interface IOrder extends IForm {
   id: string;
-  data: Date;
+  data: string;
   valor: number;
   produtos: ICartItem[];
   status: string;

@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import firebase from '../services/firebase';
 import paths from '../utils/paths';
+import { useCart } from './CartContext';
 
 interface ISignUp {
   name: string;
@@ -39,6 +40,7 @@ type UserTypes = {
 const AuthContext = createContext({} as IAuthContext);
 
 export const AuthProvider = ({ children }: IAuthProvider) => {
+  const { resetCart } = useCart();
   const [loadingAuth, setLoadingAuth] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [user, setUser] = useState<UserTypes | null>(() => {
@@ -47,7 +49,7 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
     if (getUser) {
       return JSON.parse(getUser);
     }
-
+    resetCart();
     return null;
   });
 
@@ -140,13 +142,12 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
     }
   };
 
-  const signOut = () => {
-    firebase.auth().signOut();
+  const signOut = async () => {
+    await firebase.auth().signOut();
     //
-    window.location.reload();
 
+    window.location.reload();
     localStorage.clear();
-    setUser(null);
   };
 
   return (

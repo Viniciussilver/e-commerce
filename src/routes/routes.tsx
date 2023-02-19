@@ -4,8 +4,9 @@ import { ThemeProvider } from 'styled-components';
 import { CheckoutForm, Products, Register, SignIn } from '../containers/';
 import paths from '../utils/paths';
 import { useThemeContext } from '../contexts/ThemeContext';
+import PrivateRoute from './PrivateRoute';
 
-const App = () => {
+const Rotas = () => {
   //
   const { theme } = useThemeContext();
 
@@ -13,13 +14,34 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Routes>
         <Route path={paths.products} element={<Products />} />
-        <Route path={paths.login} element={<SignIn />} />
-        <Route path={paths.register} element={<Register />} />
-        <Route path={paths.checkout} element={<CheckoutForm />} />
+        <Route
+          path={paths.login}
+          element={
+            <PrivateRoute isRegister>
+              <SignIn />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={paths.register}
+          element={
+            <PrivateRoute isRegister>
+              <Register />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={paths.checkout}
+          element={
+            <PrivateRoute isPrivate>
+              <CheckoutForm />
+            </PrivateRoute>
+          }
+        />
         <Route path='*' element={<Navigate to={paths.products} />} />
       </Routes>
     </ThemeProvider>
   );
 };
 
-export default App;
+export default Rotas;

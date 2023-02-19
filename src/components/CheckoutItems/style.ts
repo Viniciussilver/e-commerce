@@ -3,10 +3,15 @@ import styled from 'styled-components';
 // import { IoIosArrowUp } from 'react-icons/io';
 
 export const ContainerListProducts = styled.div`
-  width: 65%;
+  width: 500px;
+  height: max-content;
   display: flex;
   flex-direction: column;
   gap: 15px;
+  padding: 30px 40px;
+
+  border-radius: 2px;
+  border: 1px solid #ccc;
 `;
 export const Title = styled.h2`
   color: ${props => props.theme.colors.texts.primary};
@@ -61,17 +66,13 @@ export const AreaProducts = styled.div`
   display: flex;
   flex-direction: column;
   gap: 7px;
-  height: 380px;
-  overflow-y: auto;
 
   ::-webkit-scrollbar {
     width: 9px;
-    background-color: #eee;
-    border-radius: 3px;
+    background-color: #f5f5f5;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: #ccc;
-    border-radius: 3px;
+    background-color: #7f7f7f;
   }
 `;
 
@@ -81,7 +82,6 @@ export const ProductItem = styled.div`
   align-items: center;
   gap: 16px;
   padding: 10px 0;
-  padding-right: 20px;
 `;
 
 export const Image = styled.img`

@@ -5,7 +5,7 @@ import { FaBoxOpen } from 'react-icons/fa';
 
 export const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   background-color: rgba(0, 0, 0, 0.9);
   position: fixed;
   top: 0;
@@ -13,35 +13,35 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   padding-top: 140px;
-  padding-bottom: 60px;
 `;
 
 export const ContainerItem = styled.div`
   max-width: 1000px;
   width: 100%;
 
+  margin: 0 20px;
   display: flex;
   flex-direction: column;
 `;
 
 export const ContainerOrders = styled.div`
-  background-color: ${props => props.theme.colors.background.default};
+  background-color: #f5f5f5;
   display: flex;
   flex-direction: column;
-  border-radius: 4.3px;
+  border-radius: 5px;
 
-  height: 600px;
+  height: 550px;
   overflow: hidden;
   overflow-y: auto;
 
   ::-webkit-scrollbar {
     width: 9px;
-    background-color: #eee;
-    border-radius: 4px;
+    background-color: #f5f5f5;
+    border-radius: 33px;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: #7f7f7f;
-    border-radius: 4px;
+    background-color: #808080;
+    border-radius: 3.8px;
   }
 `;
 
@@ -60,16 +60,26 @@ export const Header = styled.div`
   align-items: center;
 
   /* border-bottom: 2.5px solid #0058a1; */
-  margin-bottom: 14px;
+  margin-bottom: 10px;
   padding-right: 10px;
 `;
 
-export const ChargingBox = styled.div`
+export const LoadingBox = styled.div`
   width: 100%;
-  margin-top: 28.4%;
+  height: 100%;
+
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 4.5px;
+
+  p {
+    position: relative;
+    bottom: 4px;
+    font-weight: 500;
+    font-size: 17px;
+    color: #2e2d2d;
+  }
 `;
 
 export const Back = styled(MdOutlineClose)`
@@ -93,7 +103,7 @@ export const BoxOpen = styled(FaBoxOpen)`
 `;
 
 export const ArrowUp = styled(IoIosArrowUp)<{ showOrder: boolean }>`
-  color: ${props => props.theme.colors.texts.primary};
+  color: #585555;
   width: 18px;
   height: 18px;
   transform: ${props => (props.showOrder ? 'none' : 'rotate(180deg)')};
@@ -138,7 +148,7 @@ export const StatusArea = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20px 0;
+  margin: 15px 0;
 `;
 
 export const Points = styled.div`
@@ -168,8 +178,8 @@ export const BoxImage = styled.div`
 
 export const TextStatus = styled.p<{ status: boolean }>`
   color: ${props => (props.status ? '#0058a1' : '#808080')};
-  font-weight: 500;
-  font-size: 17px;
+  font-weight: 400;
+  font-size: 16.8px;
   width: max-content;
 `;
 
@@ -212,6 +222,9 @@ export const Body = styled.div`
     padding: 5px 0;
     display: flex;
     gap: 5px;
+    font-weight: 400;
+    font-size: 16px;
+    color: #2c2a2a;
   }
 `;
 
@@ -229,4 +242,46 @@ export const TableHeader = styled.div`
   .table-header.collum-1 {
     grid-column: 1 / span 2;
   }
+`;
+
+export const DetailsHeader = styled.p`
+  width: 100%;
+
+  font-weight: 400;
+  font-size: 16px;
+  color: #808080;
+
+  border-bottom: 1px solid #ccc;
+`;
+
+export const DetailsBox = styled.div`
+  display: flex;
+  gap: 35px;
+  padding: 14px 0;
+`;
+
+export const DetailsColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+`;
+
+export const ItemDescription = styled.div`
+  font-weight: 400;
+  font-size: 16px;
+  color: #2c2a2a;
+  display: flex;
+  gap: 5px;
+`;
+export const ItemText = styled.p`
+  font-weight: 400;
+  font-size: 15.6px;
+  color: #808080;
+`;
+
+export const WarningText = styled.p`
+  font-weight: 500;
+  font-size: 19px;
+  color: #2e2d2d;
 `;

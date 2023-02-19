@@ -1,13 +1,14 @@
 import { useEffect, useState, useMemo } from 'react';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { DotSpinner } from '@uiball/loaders';
+import { useQuery } from 'react-query';
 
 import { Header, Orders, ProductItem, SearchFiltering } from '../../components';
 import { IProduct } from '../../@types/Product';
 import { Cart } from '../Cart';
 import { useThemeContext } from '../../contexts/ThemeContext';
 import * as C from './style';
-import requests from '../../services/fakeStore';
+import api from '../../services/fakeStoreBaseUrl';
 import { formatCurrency } from '../../utils/format';
 
 export interface IShowOrder {
@@ -31,58 +32,77 @@ export const Products = () => {
     return { showOrder: false, orderId: null };
   });
 
-  const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
-  const [category, setCategory] = useState('All');
-
   const search = useMemo(() => {
     return searchParams.get('busca') || '';
   }, [searchParams]);
 
   const [inputValue, setInputValue] = useState(search);
   const [isActiveInputArea, setIsActiveInputArea] = useState(false);
-  const [allProducts, setAllProducts] = useState<IProduct[]>([]);
-  const [categories, setCategories] = useState<string[]>([]);
-  const [isFetching, setIsFetching] = useState(false);
+  const [searchLoading, setSearchLoading] = useState(false);
 
-  useEffect(() => {
-    const getItems = async () => {
-      const { products, categories } = await requests();
-
-      setIsFetching(false);
+  const { data: data1, isFetching: fetching1 } = useQuery(
+    'products',
+    async () => {
+      const products = await api.get('products').then(res => res.data);
 
       const newProducts = (products as IProduct[]).map(item => {
         return { ...item, formatedPrice: formatCurrency(item.price) };
       });
 
-      setAllProducts(newProducts);
+      return newProducts;
+    },
+    {
+      staleTime: 3600000,
+    }
+  );
 
-      setCategories(['All', ...categories]);
-    };
+  const { data: data2, isFetching: fetching2 } = useQuery(
+    'categories',
+    async () => {
+      const categories = await api
+        .get('products/categories')
+        .then(res => res.data);
 
-    if (!(allProducts.length > 0) || !(categories.length > 0)) {
-      setIsFetching(true);
-      getItems();
+      return ['All', ...categories];
+    },
+    {
+      staleTime: 3600000,
+    }
+  );
+
+  const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
+  const [category, setCategory] = useState('All');
+
+  const [allProducts, setAllProducts] = useState<IProduct[] | null>(null);
+  const [categories, setCategories] = useState<string[] | null>(null);
+
+  useEffect(() => {
+    if (data1 && data2 && !allProducts && !categories) {
+      setAllProducts(data1);
+      setCategories(data2);
+
+      return;
     }
 
-    if (category === 'All') {
-      setFilteredProducts(allProducts);
-    } else {
-      const newList = allProducts.filter(item => item.category === category);
+    if (allProducts && categories) {
+      if (category === 'All') {
+        setFilteredProducts(allProducts);
+      } else {
+        const newList = allProducts.filter(item => item.category === category);
 
-      setFilteredProducts(newList);
+        setFilteredProducts(newList);
+      }
     }
-  }, [category, allProducts]);
-
-  useEffect(() => {}, []);
+  }, [category, allProducts, data1, data2]);
 
   const handleSearch = () => {
     if (!inputValue) return alert('Erro ao buscar');
 
-    setIsFetching(true);
+    setSearchLoading(true);
 
     setSearchParams({ busca: inputValue });
 
-    setTimeout(() => setIsFetching(false), 1600);
+    setTimeout(() => setSearchLoading(false), 1500);
   };
 
   const removeParam = () => {
@@ -117,11 +137,11 @@ export const Products = () => {
         <hr style={{ height: '42px', width: 2 }}></hr>
       </Header>
 
-      {!isFetching && !search && (
+      {!fetching1 && !fetching2 && !searchLoading && !search && (
         <>
           <C.RowList>
             <C.ListArea>
-              {categories.map((item, index) => (
+              {categories?.map((item, index) => (
                 <C.ButtonCategory
                   key={index}
                   onClick={() => setCategory(item)}
@@ -140,17 +160,23 @@ export const Products = () => {
         </>
       )}
 
-      {!isFetching && !!search && (
-        <SearchFiltering
-          valueSearch={search}
-          items={allProducts.filter(item =>
-            item.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-          )}
-          undoClick={removeParam}
-        />
-      )}
+      {!fetching1 &&
+        !fetching2 &&
+        !searchLoading &&
+        !!search &&
+        allProducts && (
+          <SearchFiltering
+            valueSearch={search}
+            items={allProducts.filter(item =>
+              item.title
+                .toLocaleLowerCase()
+                .includes(search.toLocaleLowerCase())
+            )}
+            undoClick={removeParam}
+          />
+        )}
 
-      {isFetching && (
+      {(fetching1 || fetching2 || searchLoading) && (
         <C.ChargingBox>
           <DotSpinner
             size={52}

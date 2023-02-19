@@ -1,25 +1,29 @@
 import styled from 'styled-components';
+import Select from 'react-select';
 
 export const Container = styled.div`
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   background-color: ${props => props.theme.colors.background.paper};
   display: flex;
   justify-content: center;
+  padding-top: 150px;
+  padding-bottom: 70px;
+
+  gap: 60px;
 `;
 
 export const ContainerCheckout = styled.div`
   display: flex;
-
-  gap: 30px;
   /* background-color: ${props =>
     props.theme.title === 'dark' ? 'rgba(0,0,0,0.5)' : '#fff'}; */
   padding: 30px 40px;
-  margin-top: 135px;
   height: max-content;
-  width: 76%;
+  width: 750px;
   border-radius: 2px;
   border: 1px solid #ccc;
+  position: sticky;
+  top: 30px;
 `;
 
 export const FormContainer = styled.div`
@@ -49,18 +53,17 @@ export const P = styled.p`
   color: ${props => props.theme.colors.texts.primary};
 `;
 
-export const Select = styled.select`
-  padding: 11px 8px;
-
-  border: 1.7px solid #ccc;
-  border-radius: 7px;
-  font-weight: 500;
-  font-size: 15.3px;
-  background-color: #fff;
-  color: #777777;
-  outline: none;
-  cursor: pointer;
+export const SelectStyles = styled(Select)<{ textError?: string | undefined }>`
   width: 100%;
+  cursor: pointer;
+
+  .css-13cymwt-control {
+    height: 45.3px;
+    cursor: pointer;
+    border-radius: 7px;
+    border: ${({ textError }) =>
+      textError ? '2px solid red' : '1.7px solid #ccc'};
+  }
 `;
 
 export const Title = styled.h2`
@@ -92,7 +95,7 @@ export const Header = styled.div`
   border-bottom: 1px solid #ccc;
 `;
 
-export const Input = styled.input`
+export const Input = styled.input<{ textError?: string | undefined }>`
   width: 100%;
   padding: 11px 8px;
 
@@ -102,7 +105,8 @@ export const Input = styled.input`
   background-color: #fff;
   outline: none;
   border-radius: 7px;
-  border: 1.7px solid #ccc;
+  border: ${({ textError }) =>
+    textError ? '2px solid red' : '1.7px solid #ccc'};
   ::-webkit-outer-spin-button,
   ::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -113,15 +117,49 @@ export const Input = styled.input`
 export const InputArea = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 1px;
   width: 100%;
+
+  .error-box {
+    position: relative;
+    width: 100%;
+  }
+
+  .error-message {
+    position: absolute;
+    left: 0;
+    color: red;
+    font-size: 15px;
+  }
 `;
 
 export const Label = styled.label`
   display: flex;
+  padding-bottom: 8px;
+  padding-top: 4px;
   color: ${props => props.theme.colors.texts.secundary};
 
   span {
     color: red;
+  }
+`;
+
+export const LoadingBox = styled.div`
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4.5px;
+  position: relative;
+  top: 2px;
+
+  p {
+    position: relative;
+    bottom: 3.6px;
+    font-weight: 400;
+    font-size: 17px;
+    color: #fff;
   }
 `;

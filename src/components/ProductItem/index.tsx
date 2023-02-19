@@ -1,6 +1,4 @@
 // import { toast } from 'react-toastify';
-import toast from 'react-hot-toast';
-import 'lazysizes';
 
 import * as C from './style';
 import { IProduct } from '../../@types/Product';

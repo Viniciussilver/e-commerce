@@ -6,42 +6,62 @@ import firebase from '../../services/firebase';
 import * as C from './style';
 import { IOrder } from '../../@types/Order';
 import { IShowOrder } from '../../containers';
+import { TableProducts } from './Table';
+import { useQuery, useQueryClient } from 'react-query';
 import { formatCurrency } from '../../utils/format';
+import formatDate from '../../utils/formatDate';
 
 interface OrdersType {
   setShowOrders: (e: IShowOrder) => void;
   orderId: string | null;
 }
 
+const steps = {
+  step1: 'Pedido realizado',
+  step2: 'Pedido a caminho',
+  step3: 'Pedido entregue',
+};
+
 export const Orders = ({ setShowOrders, orderId }: OrdersType) => {
   const [orders, setOrders] = useState<null | IOrder[]>(null);
   const [showOrderById, setShowOrderById] = useState<string | null>(orderId);
-  const [isFetching, setIsFetching] = useState(true);
+  const [updatedOrders, setUpdatedOrders] = useState(false);
 
   const { user } = useAuth();
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    const getOrders = async () => {
-      await firebase
+  const { data, isFetching } = useQuery(
+    'orders',
+    async () => {
+      const response = await firebase
         .firestore()
         .collection('infoUsers')
         .doc(user?.uid)
         .get()
         .then(res => {
-          setIsFetching(false);
-          console.log(res.data());
+          return (res.data() as { pedidos: null | IOrder[] }).pedidos;
+        });
 
-          if (!res.exists) throw new Error();
+      return response;
+    },
+    {
+      staleTime: 3600000,
+    }
+  );
 
-          setOrders((res.data() as { pedidos: null | IOrder[] }).pedidos);
-        })
-        .catch(() => alert('Erro ao buscar por pedidos'));
-    };
+  useEffect(() => {
+    const getOrders = async () =>
+      await queryClient.invalidateQueries(['orders']);
 
-    getOrders();
+    if (orderId) getOrders();
   }, []);
 
-  //
+  useEffect(() => {
+    if (data) setOrders(data);
+
+    setUpdatedOrders(true);
+  }, [data]);
+
   return (
     <C.Container>
       <C.ContainerItem>
@@ -71,79 +91,85 @@ export const Orders = ({ setShowOrders, orderId }: OrdersType) => {
                   <C.StatusArea>
                     <C.Points>
                       <C.Point status={true}></C.Point>
-                      <C.Line
-                        status={
-                          item.status.toLowerCase() !== 'pedido realizado'
-                        }
-                      >
-                        {' '}
-                      </C.Line>
-                      <C.Point
-                        status={
-                          item.status.toLowerCase() !== 'pedido realizado'
-                        }
-                      ></C.Point>
-                      <C.Line
-                        status={item.status.toLowerCase() === 'pedido entregue'}
-                      >
-                        {' '}
-                      </C.Line>
-                      <C.Point
-                        status={item.status.toLowerCase() === 'pedido entregue'}
-                      ></C.Point>
+                      <C.Line status={item.status !== steps.step1}> </C.Line>
+                      <C.Point status={item.status !== steps.step1}></C.Point>
+                      <C.Line status={item.status === steps.step3}> </C.Line>
+                      <C.Point status={item.status === steps.step3}></C.Point>
                     </C.Points>
                     <C.Div>
                       <C.TextStatus status={true}>
                         Pedido realizado
                       </C.TextStatus>
-                      <C.TextStatus
-                        status={
-                          item.status.toLowerCase() !== 'pedido realizado'
-                        }
-                      >
+                      <C.TextStatus status={item.status !== steps.step1}>
                         Pedido à caminho
                       </C.TextStatus>
-                      <C.TextStatus
-                        status={item.status.toLowerCase() === 'pedido entregue'}
-                      >
+                      <C.TextStatus status={item.status === steps.step3}>
                         Pedido entregue
                       </C.TextStatus>
                     </C.Div>
                   </C.StatusArea>
+                  <C.DetailsHeader>Detalhes</C.DetailsHeader>
 
-                  <C.TableProducts>
-                    <C.TableHeader>
-                      <div className='table-header collum-1'>Produto</div>
-                      <div className='table-header'>Preço</div>
-                      <div className='table-header'>Quantidade</div>
-                      <div className='table-header'>Subtotal</div>
-                    </C.TableHeader>
-                    {item.produtos.map(item => (
-                      <C.Body key={item.id}>
-                        <div className='table-cell collum-1'>
-                          <C.BoxImage>
-                            <C.Image src={item.image} alt='imagem-produto' />
-                          </C.BoxImage>
-                          {item.title}
-                        </div>
-                        <div className='table-cell'>{item.formatedPrice}</div>
-                        <div className='table-cell collum-3'>
-                          {item.quantity}
-                        </div>
-                        <div className='table-cell'>
-                          {formatCurrency(item.quantity * item.price)}
-                        </div>
-                      </C.Body>
-                    ))}
-                  </C.TableProducts>
+                  <C.DetailsBox>
+                    <C.DetailsColumn>
+                      <C.ItemDescription>
+                        Nome: <C.ItemText>{item.nome}</C.ItemText>
+                      </C.ItemDescription>
+                      <C.ItemDescription>
+                        Data do pedido: <C.ItemText>{item.data}</C.ItemText>
+                      </C.ItemDescription>
+
+                      <C.ItemDescription>
+                        Status: <C.ItemText>{item.status}</C.ItemText>
+                      </C.ItemDescription>
+                      <C.ItemDescription>
+                        Valor da compra:{' '}
+                        <C.ItemText>{formatCurrency(item.valor)}</C.ItemText>
+                      </C.ItemDescription>
+                    </C.DetailsColumn>
+
+                    <C.DetailsColumn>
+                      <C.ItemDescription>
+                        Cep: <C.ItemText>{item.cep}</C.ItemText>
+                      </C.ItemDescription>
+
+                      <C.ItemDescription>
+                        Bairro: <C.ItemText>{item.bairro}</C.ItemText>
+                      </C.ItemDescription>
+
+                      <C.ItemDescription>
+                        rua: <C.ItemText>{item.rua}</C.ItemText>
+                      </C.ItemDescription>
+                      <C.ItemDescription>
+                        Numero: <C.ItemText>{item.numero}</C.ItemText>
+                      </C.ItemDescription>
+                    </C.DetailsColumn>
+                  </C.DetailsBox>
+
+                  <TableProducts items={item.produtos} />
                 </C.OrderInfo>
               </C.Order>
             ))}
 
+          {!orders && !isFetching && updatedOrders && (
+            <div
+              style={{
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <C.WarningText>Não há pedidos 👎🏼</C.WarningText>
+            </div>
+          )}
+
           {isFetching && (
-            <C.ChargingBox>
-              <DotPulse size={49} speed={1.4} color='#000' />
-            </C.ChargingBox>
+            <C.LoadingBox>
+              <p>Carregando</p>
+              <DotPulse size={18} speed={2.2} color='#535050fa' />
+            </C.LoadingBox>
           )}
         </C.ContainerOrders>
       </C.ContainerItem>
