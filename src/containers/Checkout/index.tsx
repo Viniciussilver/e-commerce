@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { DotPulse } from '@uiball/loaders';
-import IMask from 'imask';
 import toast from 'react-hot-toast';
 import { v4 as uuid } from 'uuid';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -23,23 +22,14 @@ export const CheckoutForm: React.FC = () => {
   const { user } = useAuth();
   const { cartItems, total, resetCart } = useCart();
   const [loading, setLoading] = useState<boolean>(false);
-  const [phoneValue, setPhoneValue] = useState('');
-  const [cepValue, setCepValue] = useState('');
 
   const location = useLocation();
   const navigate = useNavigate();
 
-  const cepRef = useRef<HTMLInputElement>(null);
-  const phoneRef = useRef<HTMLInputElement>(null);
+  // const cepRef = useRef<HTMLInputElement>(null);
+  // const phoneRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    IMask(cepRef.current as HTMLInputElement, {
-      mask: '00000-000',
-    });
-    IMask(phoneRef.current as HTMLInputElement, {
-      mask: '(00) 00000-0000',
-    });
-
     if (!location.state?.checkout || !user || !cartItems)
       navigate(paths.products);
   }, []);
@@ -115,7 +105,7 @@ export const CheckoutForm: React.FC = () => {
     <C.Container>
       <C.ContainerCheckout>
         <C.FormContainer>
-          <C.Form onSubmit={handleSubmit(onSubmit)}>
+          <C.Form onSubmit={handleSubmit(onSubmit)} noValidate>
             <C.Header>
               <C.Title> Confirmar dados(Entrega)</C.Title>
             </C.Header>
@@ -136,16 +126,14 @@ export const CheckoutForm: React.FC = () => {
                   <Controller
                     name='telefone'
                     control={control}
+                    defaultValue=''
                     render={({ field }) => (
-                      <C.Input
+                      <C.IMask
                         textError={errors.telefone?.message}
                         {...field}
                         id='telefone'
-                        type='text'
-                        ref={phoneRef}
-                        value={phoneValue}
+                        mask='(99) 99999-9999'
                         placeholder='(00) 00000-0000'
-                        onChange={e => setPhoneValue(e.target.value)}
                       />
                     )}
                   />
@@ -218,16 +206,14 @@ export const CheckoutForm: React.FC = () => {
                     <Controller
                       name='cep'
                       control={control}
+                      defaultValue=''
                       render={({ field }) => (
-                        <C.Input
+                        <C.IMask
                           {...field}
                           textError={errors.cep?.message}
                           id='cep'
-                          type='text'
-                          ref={cepRef}
+                          mask='99999-999'
                           placeholder='00000-000'
-                          value={cepValue}
-                          onChange={e => setCepValue(e.target.value)}
                         />
                       )}
                     />

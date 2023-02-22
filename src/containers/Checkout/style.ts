@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Select from 'react-select';
+import InputMask from 'react-input-mask';
 
 export const Container = styled.div`
   width: 100%;
@@ -96,6 +97,20 @@ export const Header = styled.div`
 `;
 
 export const Input = styled.input<{ textError?: string | undefined }>`
+  width: 100%;
+  padding: 11px 8px;
+
+  font-weight: 500;
+  font-size: 15.3px;
+  color: #777777;
+  background-color: #fff;
+  outline: none;
+  border-radius: 7px;
+  border: ${({ textError }) =>
+    textError ? '2px solid red' : '1.7px solid #ccc'};
+`;
+
+export const IMask = styled(InputMask)<{ textError?: string | undefined }>`
   width: 100%;
   padding: 11px 8px;
 
