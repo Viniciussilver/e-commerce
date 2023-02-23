@@ -96,7 +96,7 @@ export const CheckoutForm: React.FC = () => {
       navigate(paths.products);
 
       resetCart();
-    }, 1400);
+    }, 1800);
   };
 
   const alertErrorSubmitForm = (message: string) => alert(message);

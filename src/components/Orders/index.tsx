@@ -57,9 +57,11 @@ export const Orders = ({ setShowOrders, orderId }: OrdersType) => {
   }, []);
 
   useEffect(() => {
-    if (data) setOrders(data);
-
-    setUpdatedOrders(true);
+    if (data) {
+      setOrders(data);
+    } else {
+      setUpdatedOrders(true);
+    }
   }, [data]);
 
   return (
